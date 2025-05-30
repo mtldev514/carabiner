@@ -25,6 +25,7 @@ export default function EventListWithCalendar() {
   const [showCalendar, setShowCalendar] = useState(false);
 
   const [events, setEvents] = useState<Event[]>([]);
+
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   useEffect(() => {
@@ -59,7 +60,9 @@ export default function EventListWithCalendar() {
     {}
   );
 
-  const sortedDates = Object.keys(grouped).sort();
+  const sortedDates = Object.keys(grouped).sort((a, b) =>
+    new Date(a).getTime() - new Date(b).getTime()
+  )
 
   return (
     <div className="p-4 max-w-2xl mx-auto">
