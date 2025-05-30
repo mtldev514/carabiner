@@ -1,0 +1,25 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "submit": "Soumettre"
+  },
+  "submit": {
+    "title": "Soumettre un événement",
+    "button": "Envoyer"
+  },
+  "form": {
+    "titlePlaceholder": "Titre",
+    "descriptionPlaceholder": "Description",
+    "locationPlaceholder": "Lieu",
+    "ticketUrlPlaceholder": "Lien vers la billetterie (optionnel)",
+    "loading": "Envoi…",
+    "submitButton": "Soumettre",
+    "successMessage": "🎉 Événement soumis avec succès !"
+  },
+  "eventList": {
+    "viewAllEvents": "Voir tous les événements",
+    "showCalendar": "Afficher le calendrier",
+    "hideCalendar": "Masquer le calendrier",
+    "noEvents": "Aucun événement à cette date."
+  }
+}
