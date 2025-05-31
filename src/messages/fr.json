@@ -5,16 +5,18 @@
   },
   "submit": {
     "title": "Soumettre un événement",
-    "button": "Envoyer"
-  },
-  "form": {
-    "titlePlaceholder": "Titre",
-    "descriptionPlaceholder": "Description",
-    "locationPlaceholder": "Lieu",
-    "ticketUrlPlaceholder": "Lien vers la billetterie (optionnel)",
-    "loading": "Envoi…",
-    "submitButton": "Soumettre",
-    "successMessage": "🎉 Événement soumis avec succès !"
+    "button": "Envoyer",
+    "form": {
+      "titlePlaceholder": "Titre",
+      "description_fr_Placeholder": "Description in French",
+      "description_en_Placeholder": "Description in English",
+      "locationPlaceholder": "Lieu",
+      "ticketUrlPlaceholder": "Lien vers la billetterie (optionnel)",
+      "loading": "Envoi…",
+      "submitButton": "Soumettre",
+      "successMessage": "🎉 Merci ! L’événement sera visible après modération.",
+      "captchaFailed": "La vérification CAPTCHA a échoué."
+    }
   },
   "eventList": {
     "viewAllEvents": "Voir tous les événements",

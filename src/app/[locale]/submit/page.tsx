@@ -1,66 +1,174 @@
-'use client' // ← seulement si tu es en App Router
+"use client"; // ← seulement si tu es en App Router
+import { v4 as uuidv4 } from "uuid"; // npm install uuid
 
-import { useState } from 'react'
-import { supabase } from '../../utils/supabaseClient'
-import { useTranslations } from 'next-intl'
+import { useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
+import { supabase } from "../../utils/supabaseClient";
+import { useTranslations } from "next-intl";
+
+const uploadImages = async (eventId: string, images: any[]) => {
+  const uploads = images.map(async (image, index) => {
+    const fileExt = image.name.split(".").pop();
+    const fileName = `${eventId}/${uuidv4()}.${fileExt}`;
+    const { data, error } = await supabase.storage
+      .from("event-photos")
+      .upload(fileName, image);
+    if (!error) {
+      // const publicUrl = supabase.storage
+      //   .from("event-photos")
+      //   .getPublicUrl(fileName).data.publicUrl;
+      // Pour afficher :
+      //  const { data } = await supabase.storage
+      // .from('event-photos')
+      // .createSignedUrl(fileName, 60 * 60)
+
+      await supabase.from("event_images").insert({
+        event_id: eventId,
+        file_name: fileName,
+        order_index: index,
+      });
+    }
+  });
+
+  await Promise.all(uploads);
+};
 
 export default function SubmitEventPage() {
-  const t = useTranslations('submit')
+  const [token, setToken] = useState<string | null>(null);
+  const [images, setImages] = useState<File[]>([]);
+  const [imageError, setImageError] = useState<string | null>(null);
+  const t = useTranslations("submit");
 
   const [form, setForm] = useState({
-    title: '',
-    description_fr: '',
-    date: '',
-    location: '',
-    ticket_url: ''
-  })
+    title: "",
+    description_fr: "",
+    description_en: "",
+    date: "",
+    location: "",
+    ticket_url: "",
+  });
 
-  const [loading, setLoading] = useState(false)
-  const [success, setSuccess] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
-  }
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    const { error } = await supabase.from('events').insert([
-      {
-        title: form.title,
-        description_fr: form.description_fr,
-        date: new Date(form.date),
-        location: form.location,
-        ticket_url: form.ticket_url
-      }
-    ])
-    setLoading(false)
-    if (!error) {
-      setSuccess(true)
-      setForm({ title: '', description_fr: '', date: '', location: '', ticket_url: '' })
-    } else {
-      alert(error.message)
+    e.preventDefault();
+
+    if (images.length === 0) {
+      setImageError("Au moins une image est requise.");
+      return;
     }
-  }
+    setLoading(true);
+
+    const response = await fetch("/api/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...form, token }),
+    });
+
+    const result = await response.json();
+
+    setLoading(false);
+    if (result.success) {
+      setSuccess(true);
+      const { data, error } = await supabase
+        .from("events")
+        .insert([
+          {
+            title: form.title,
+            description_fr: form.description_fr,
+            description_en: form.description_en,
+            date: new Date(form.date),
+            location: form.location,
+            ticket_url: form.ticket_url,
+          },
+        ])
+        .select()
+        .single();
+      if (!error && data?.id) {
+        setSuccess(true);
+        await uploadImages(data.id, images);
+        setForm({
+          title: "",
+          description_fr: "",
+          description_en: "",
+          date: "",
+          location: "",
+          ticket_url: "",
+        });
+      } else {
+        alert(error?.message);
+      }
+    } else {
+      alert("CAPTCHA failed.");
+    }
+  };
 
   return (
     <div className="p-4 max-w-xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">{t('title')}</h1>
+      <h1 className="text-2xl font-bold mb-4">{t("title")}</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
           name="title"
-          placeholder={t('form.titlePlaceholder')}
+          placeholder={t("form.titlePlaceholder")}
           value={form.title}
           onChange={handleChange}
           required
           className="w-full p-2 border rounded"
         />
+        <input
+          type="file"
+          accept="image/*"
+          name="images"
+          multiple
+          required
+          onChange={(e) => {
+            const files = Array.from(e.target.files || []);
+            if (files.length > 15) {
+              setImageError("Vous pouvez ajouter jusqu’à 15 images maximum.");
+            } else if (files.length === 0) {
+              setImageError("Au moins une image est requise.");
+            } else {
+              setImages(files);
+              setImageError(null);
+            }
+          }}
+          className="w-full p-2 border rounded"
+        />
+
+        {imageError && <p className="text-red-500 text-sm">{imageError}</p>}
+
+        {images.length > 0 && (
+          <div className="grid grid-cols-3 gap-2 mt-2">
+            {images.map((file, index) => (
+              <img
+                key={index}
+                src={URL.createObjectURL(file)}
+                alt={`preview-${index}`}
+                className="h-24 object-cover rounded border"
+              />
+            ))}
+          </div>
+        )}
         <textarea
           name="description_fr"
-          placeholder={t('form.descriptionPlaceholder')}
+          placeholder={t("form.description_fr_Placeholder")}
           value={form.description_fr}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+        />
+        <textarea
+          name="description_en"
+          placeholder={t("form.description_en_Placeholder")}
+          value={form.description_en}
           onChange={handleChange}
           className="w-full p-2 border rounded"
         />
@@ -75,7 +183,7 @@ export default function SubmitEventPage() {
         <input
           type="text"
           name="location"
-          placeholder={t('form.locationPlaceholder')}
+          placeholder={t("form.locationPlaceholder")}
           value={form.location}
           onChange={handleChange}
           required
@@ -84,20 +192,29 @@ export default function SubmitEventPage() {
         <input
           type="url"
           name="ticket_url"
-          placeholder={t('form.ticketUrlPlaceholder')}
+          placeholder={t("form.ticketUrlPlaceholder")}
           value={form.ticket_url}
           onChange={handleChange}
           className="w-full p-2 border rounded"
+        />
+
+        <ReCAPTCHA
+          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+          size="invisible"
+          ref={(ref) => ref?.execute()}
+          onChange={(value) => setToken(value)}
         />
         <button
           type="submit"
           disabled={loading}
           className="w-full bg-black text-white py-2 rounded hover:bg-gray-800"
         >
-          {loading ? t('form.loading') : t('form.submitButton')}
+          {loading ? t("form.loading") : t("form.submitButton")}
         </button>
-        {success && <p className="text-green-600 mt-2">{t('form.successMessage')}</p>}
+        {success && (
+          <p className="text-green-600 mt-2">{t("form.successMessage")}</p>
+        )}
       </form>
     </div>
-  )
+  );
 }

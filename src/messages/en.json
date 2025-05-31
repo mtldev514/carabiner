@@ -1,25 +1,27 @@
 {
-    "nav": {
-      "home": "Home",
-      "submit": "Submit"
-    },
-    "submit": {
-      "title": "Submit an Event",
-      "button": "Send"
-    },
+  "nav": {
+    "home": "Home",
+    "submit": "Submit"
+  },
+  "submit": {
+    "title": "Submit an Event",
+    "button": "Send",
     "form": {
       "titlePlaceholder": "Title",
-      "descriptionPlaceholder": "Description",
+      "description_fr_Placeholder": "Description en Français",
+      "description_en_Placeholder": "Description en Anglais",
       "locationPlaceholder": "Location",
       "ticketUrlPlaceholder": "Ticket URL (optional)",
       "loading": "Sending…",
       "submitButton": "Submit",
-      "successMessage": "🎉 Event submitted successfully!"
-    },
-    "eventList": {
-        "viewAllEvents": "View all events",
-        "showCalendar": "Show calendar",
-        "hideCalendar": "Hide calendar",
-        "noEvents": "No events on this date."
-      }
+      "successMessage": "🎉 Thank you! The event will be visible after moderation.",
+      "captchaFailed": "CAPTCHA verification failed."
+    }
+  },
+  "eventList": {
+    "viewAllEvents": "View all events",
+    "showCalendar": "Show calendar",
+    "hideCalendar": "Hide calendar",
+    "noEvents": "No events on this date."
   }
+}
