@@ -4,28 +4,19 @@ import { SetStateAction, useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
-
 import "react-calendar/dist/Calendar.css";
 import { format } from "date-fns";
 import { fr, enUS } from "date-fns/locale";
 import { supabase } from "@/app/utils/supabaseClient";
+import {EventCard, Event} from "./EventCard";
 
-type Event = {
-  id: string;
-  title: string;
-  description: string;
-  date: string;
-  location: string;
-};
 
 export default function EventListWithCalendar() {
-  const t = useTranslations("eventList"); // Utilisation des traductions pour le namespace 'eventList'
+  const t = useTranslations("eventList");
   const locale = useLocale();
   const calendarLocale = locale === "fr" ? fr : enUS;
   const [showCalendar, setShowCalendar] = useState(false);
-
   const [events, setEvents] = useState<Event[]>([]);
-
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   useEffect(() => {
@@ -60,9 +51,9 @@ export default function EventListWithCalendar() {
     {}
   );
 
-  const sortedDates = Object.keys(grouped).sort((a, b) =>
-    new Date(a).getTime() - new Date(b).getTime()
-  )
+  const sortedDates = Object.keys(grouped).sort(
+    (a, b) => new Date(a).getTime() - new Date(b).getTime()
+  );
 
   return (
     <div className="p-4 max-w-2xl mx-auto">
@@ -71,8 +62,7 @@ export default function EventListWithCalendar() {
           className="text-sm text-blue-600 underline mb-4"
           onClick={() => setSelectedDate(null)}
         >
-          {t("viewAllEvents")}{" "}
-          {/* Traduction pour "Voir tous les événements" */}
+          {t("viewAllEvents")}
         </button>
       )}
 
@@ -80,8 +70,7 @@ export default function EventListWithCalendar() {
         onClick={() => setShowCalendar(!showCalendar)}
         className="mb-4 text-sm text-blue-600 underline"
       >
-        {showCalendar ? t("hideCalendar") : t("showCalendar")}{" "}
-        {/* Traduction pour "Masquer le calendrier" et "Afficher le calendrier" */}
+        {showCalendar ? t("hideCalendar") : t("showCalendar")}
       </button>
 
       <AnimatePresence initial={false}>
@@ -107,11 +96,9 @@ export default function EventListWithCalendar() {
           </motion.div>
         )}
       </AnimatePresence>
+
       {sortedDates.length === 0 && (
-        <p className="text-center text-gray-500">
-          {t("noEvents")}{" "}
-          {/* Traduction pour "Aucun événement à cette date." */}
-        </p>
+        <p className="text-center text-gray-500">{t("noEvents")}</p>
       )}
 
       {sortedDates.map((date) => (
@@ -124,14 +111,10 @@ export default function EventListWithCalendar() {
               year: "numeric",
             }).format(new Date(date))}
           </h2>
-          <ul className="space-y-2">
+          <ul className="space-y-4">
             {grouped[date].map((event) => (
-              <li
-                key={event.id}
-                className="p-3 rounded-md bg-white shadow border-l-4 border-pink-500"
-              >
-                <p className="font-semibold">{event.title}</p>
-                <p className="text-sm text-gray-600">{event.location}</p>
+              <li key={event.id}>
+                <EventCard event={event} />
               </li>
             ))}
           </ul>

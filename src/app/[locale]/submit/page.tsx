@@ -20,6 +20,7 @@ const uploadImages = async (eventId: string, images: File[]) => {
       console.error("Upload error:", error.message);
     } else {
       console.log("File uploaded:", fileName);
+      
       await supabase.from("event_images").insert({
         event_id: eventId,
         file_name: fileName,
