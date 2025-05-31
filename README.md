@@ -1,37 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Carabiner – A Queer Community Calendar
 
-Welcome to this beautiful project! :!
-## Getting Started
+**Carabiner** is a bilingual web app designed to help the queer community of Montréal discover, share, and connect through events. Named after the climbing tool that links things together, Carabiner aims to build bridges within the community — one event at a time.
 
-First, run the development server:
+## ✨ What It Does
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Event Discovery**: Browse upcoming events in a clean, date-organized feed.  
+- **Multilingual Support**: The app is fully bilingual (French/English), including all event content.  
+- **Community Contributions**: Anyone can submit an event. Submissions go through moderation before being published.  
+- **Rich Event Cards**: Events include images, time, location, and multilingual descriptions.  
+- **Built for Mobile & Desktop**: The interface is responsive, smooth, and accessible.  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠 Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Frontend**: Next.js (React + TypeScript), Tailwind CSS, Framer Motion for animations  
+- **Backend**: Supabase (database + image storage), with invisible reCAPTCHA to prevent spam  
+- **Hosting**: Ideal for Vercel, but can run anywhere that supports Node.js  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Getting Started (Local Setup)
 
-## Learn More
+1. **Clone the Repo**  
+   ```bash
+   git clone https://github.com/mtldev514/carabiner.git
+   cd carabiner
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Install Dependencies**  
+   ```bash
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Set Up Environment Variables**  
+   Create a `.env.local` file with:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+   NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your-recaptcha-site-key
+   RECAPTCHA_SECRET_KEY=your-recaptcha-secret-key
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. **Start the Dev Server**  
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+   Open [http://localhost:3000](http://localhost:3000) in your browser to view the app.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🌈 Why It Matters
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Carabiner was created by a queer, non-binary DevOps engineer and artist to serve the queer and BIPOC communities. It’s not just a tech project — it’s an act of care. Every decision is made with inclusion, simplicity, and connection in mind.
+
+This is version **0.1.0** — a first step. Contributions, ideas, and feedback are welcome.
+
+## 🔗 Links
+
+- [Vercel](https://vercel.com) – for simple, scalable Next.js deployments  
+- [Supabase](https://supabase.com) – the backend-as-a-service powering our database and image storage  
+
+
+
+❤️‍🔥 Made with ❤️ and 🤖 in MTL. All art is human.

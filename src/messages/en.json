@@ -3,6 +3,7 @@
     "home": "Home",
     "submit": "Submit"
   },
+  "description": "Carabiner est une plateforme communautaire pour partager des événements au sein de la communauté queer de Montréal. C’est une initiative queer et BIPOC. Tous les événements sont soumis à une modération. L’objectif de cette plateforme est d’offrir une alternative à l’univers de Zuckerberg. Ce n’est pas parfait — mais c’est un début.",
   "submit": {
     "title": "Submit an Event",
     "button": "Send",
