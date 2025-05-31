@@ -1,27 +1,25 @@
 "use client"; // ← seulement si tu es en App Router
 import { v4 as uuidv4 } from "uuid"; // npm install uuid
-
 import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { supabase } from "../../utils/supabaseClient";
 import { useTranslations } from "next-intl";
 
-const uploadImages = async (eventId: string, images: any[]) => {
+const uploadImages = async (eventId: string, images: File[]) => {
   const uploads = images.map(async (image, index) => {
-    const fileExt = image.name.split(".").pop();
+    const fileExt = image.type?.split("/").pop() || "jpg";
     const fileName = `${eventId}/${uuidv4()}.${fileExt}`;
+    console.log("Uploading file:", fileName);
+    console.log(image instanceof File); // true
+
     const { data, error } = await supabase.storage
       .from("event-photos")
-      .upload(fileName, image);
-    if (!error) {
-      // const publicUrl = supabase.storage
-      //   .from("event-photos")
-      //   .getPublicUrl(fileName).data.publicUrl;
-      // Pour afficher :
-      //  const { data } = await supabase.storage
-      // .from('event-photos')
-      // .createSignedUrl(fileName, 60 * 60)
+      .upload(fileName, image, { upsert: true });
 
+    if (error) {
+      console.error("Upload error:", error.message);
+    } else {
+      console.log("File uploaded:", fileName);
       await supabase.from("event_images").insert({
         event_id: eventId,
         file_name: fileName,
@@ -127,7 +125,6 @@ export default function SubmitEventPage() {
         <input
           type="file"
           accept="image/*"
-          name="images"
           multiple
           required
           onChange={(e) => {

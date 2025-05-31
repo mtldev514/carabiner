@@ -2,6 +2,7 @@ import { NextIntlClientProvider, useTranslations } from 'next-intl'
 import '../globals.css'
 import Link from 'next/link'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
+import 'keen-slider/keen-slider.min.css'
 
 export const metadata = {
   title: 'Carabiner',
