@@ -1,7 +1,8 @@
 {
   "nav": {
     "home": "Accueil",
-    "submit": "Soumettre"
+    "submit": "Soumettre",
+    "contact": "Nous"
   },
   "description": "Carabiner is a community-driven platform for sharing events in the Queer community of Montreal. It's a queer & bipoc initiative. All events are subject to moderation. The goal of this platform is to offer an alternative to the Zuckerverse. It is not perfect, - but it is a start.",
   "submit": {
@@ -24,5 +25,13 @@
     "showCalendar": "Afficher le calendrier",
     "hideCalendar": "Masquer le calendrier",
     "noEvents": "Aucun événement à cette date."
+  },
+  "contact": {
+    "home": "Accueil",
+    "addEvent": "Ajouter un événement",
+    "contact": "Contact",
+    "title": "À propos de Carabiner",
+    "description": "Carabiner est un calendrier communautaire queer pour Montréal. Tu veux collaborer, suggérer une fonctionnalité ou simplement dire bonjour ? Écris-nous !",
+    "email": "📫 Écris-nous à : hello@carabiner.mtl"
   }
 }
