@@ -43,7 +43,7 @@ export default function ImageCarousel({ imageUrls }: Props) {
         ))}
       </div>
 
-      {/* Flèche gauche */}
+      {/* Left arrow */}
       <button
         onClick={handlePrev}
         disabled={isSingleImage}
@@ -54,7 +54,7 @@ export default function ImageCarousel({ imageUrls }: Props) {
         ←
       </button>
 
-      {/* Flèche droite */}
+      {/* Right arrow */}
       <button
         onClick={handleNext}
         disabled={isSingleImage}
