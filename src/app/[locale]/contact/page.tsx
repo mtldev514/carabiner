@@ -16,4 +16,5 @@ export default function ContactPage() {
         <p className="text-gray-600">{t('email')}</p>
       </div>
     </div>
-  )}
+  )
+}
