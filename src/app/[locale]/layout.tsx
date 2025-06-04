@@ -11,12 +11,14 @@ export const metadata = {
 
 export default function RootLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: any;
 }) {
   const t = useTranslations("nav");
   return (
-    <html lang="fr">
+    <html lang={params.locale}>
       <body className="min-h-screen flex flex-col">
         <NextIntlClientProvider>
           <main className="flex-1">
