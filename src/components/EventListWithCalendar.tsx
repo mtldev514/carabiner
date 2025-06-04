@@ -5,7 +5,7 @@ import Calendar from "react-calendar";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import "react-calendar/dist/Calendar.css";
-import { format } from "date-fns";
+import { format, startOfDay } from "date-fns";
 import { fr, enUS } from "date-fns/locale";
 import { supabase } from "@/app/utils/supabaseClient";
 import {EventCard, Event} from "./EventCard";
@@ -27,7 +27,10 @@ export default function EventListWithCalendar() {
         .eq("approved", true)
         .order("date", { ascending: true });
 
-      if (data) setEvents(data);
+      if (data) {
+        const today = startOfDay(new Date());
+        setEvents(data.filter((e) => new Date(e.date) >= today));
+      }
     };
 
     fetchEvents();
