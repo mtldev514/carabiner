@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid"; // npm install uuid
 import { useState } from "react";
 import { supabase } from "../../utils/supabaseClient";
 import { useTranslations } from "next-intl";
+import TagChip from "@/components/TagChip";
 
 const uploadImages = async (eventId: string, images: File[]) => {
   const uploads = images.map(async (image, index) => {
@@ -209,24 +210,22 @@ export default function SubmitEventPage() {
           className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
         />
 
-        <div className="flex space-x-4 text-sm">
+        <div className="flex items-center gap-4 text-sm">
           <span>{t("form.tagsLabel")}: </span>
           {["artsy", "chill", "party"].map((tag) => (
-            <label key={tag} className="flex items-center space-x-1">
-              <input
-                type="checkbox"
-                checked={form.tags.includes(tag)}
-                onChange={() =>
-                  setForm((prev) => ({
-                    ...prev,
-                    tags: prev.tags.includes(tag)
-                      ? prev.tags.filter((t) => t !== tag)
-                      : [...prev.tags, tag],
-                  }))
-                }
-              />
-              <span>#{tag}</span>
-            </label>
+            <TagChip
+              key={tag}
+              tag={tag}
+              selected={form.tags.includes(tag)}
+              onToggle={() =>
+                setForm((prev) => ({
+                  ...prev,
+                  tags: prev.tags.includes(tag)
+                    ? prev.tags.filter((t) => t !== tag)
+                    : [...prev.tags, tag],
+                }))
+              }
+            />
           ))}
         </div>
 
