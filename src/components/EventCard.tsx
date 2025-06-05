@@ -2,11 +2,13 @@ import Image from "next/image";
 import ImageCarousel from "./ImageCarousel";
 import { supabase } from "@/app/utils/supabaseClient";
 import { useEffect, useState } from "react";
+import { useLocale } from "next-intl";
 
 export type Event = {
   id: string;
   title: string;
-  description: string;
+  description_en: string;
+  description_fr: string;
   date: string;
   location: string;
 };
@@ -14,6 +16,9 @@ export type Event = {
 
 
 export  function EventCard({ event }: { event: Event }) {
+  const locale = useLocale();
+  const descriptionField = locale === "fr" ? "description_fr" : "description_en";
+  const otherDescriptionField = locale === "fr" ? "description_en" : "description_fr";
   const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   useEffect(() => {
@@ -51,7 +56,7 @@ export  function EventCard({ event }: { event: Event }) {
         })}
       </p>
       <p className="text-sm text-gray-800 whitespace-pre-line">
-        {event.description}
+        {event[descriptionField] || event[otherDescriptionField]}
       </p>
     </div>
   );
