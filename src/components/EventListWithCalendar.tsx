@@ -30,7 +30,8 @@ export default function EventListWithCalendar() {
 
       if (data) {
         const today = startOfDay(new Date());
-        setEvents(data.filter((e) => new Date(e.date) >= today));
+        const mapped = data.map((e) => ({ ...e, event_url: e.ticket_url }));
+        setEvents(mapped.filter((e) => new Date(e.date) >= today));
       }
     };
 

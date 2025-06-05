@@ -67,7 +67,7 @@ export default function AdminPage() {
               date: event.date,
               location: event.location,
               tags: event.tags,
-              ticket_url: event.ticket_url,
+              event_url: event.ticket_url,
             }}
           />
           <button

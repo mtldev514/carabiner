@@ -14,7 +14,7 @@
       "description_fr_Placeholder": "Description en Français",
       "description_en_Placeholder": "Description en Anglais",
       "locationPlaceholder": "Location",
-      "ticketUrlPlaceholder": "Ticket URL (optional)",
+      "eventUrlPlaceholder": "Event URL (optional)",
       "loading": "Sending…",
       "submitButton": "Submit",
       "successMessage": "🎉 Thank you! The event will be visible after moderation.",
