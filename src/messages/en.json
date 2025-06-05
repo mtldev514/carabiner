@@ -26,6 +26,8 @@
       "tagsLabel": "Tags",
       "imageLimitError": "You can add up to 15 images maximum.",
       "imageRequiredError": "At least one image is required.",
+      "imageSizeError": "Each image must be less than 5MB.",
+      "invalidDateError": "Invalid date format. Please use a valid ISO string.",
       "imageInputLabel": "Event images (up to 15)",
       "startDateLabel": "Start date and time",
       "endDateLabel": "End date and time"

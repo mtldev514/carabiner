@@ -32,6 +32,7 @@ const uploadImages = async (eventId: string, images: File[]) => {
 export default function SubmitEventPage() {
   const [images, setImages] = useState<File[]>([]);
   const [imageError, setImageError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
   const t = useTranslations("submit");
   const locale = useLocale();
 
@@ -84,8 +85,17 @@ export default function SubmitEventPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    setFormError(null)
     if (images.length === 0) {
       setImageError(t("form.imageRequiredError"));
+      return;
+    }
+    if (images.some((img) => img.size > 5 * 1024 * 1024)) {
+      setFormError(t("form.imageSizeError"));
+      return;
+    }
+    if (isNaN(Date.parse(form.date)) || (form.end_date && isNaN(Date.parse(form.end_date)))) {
+      setFormError(t("form.invalidDateError"));
       return;
     }
     setLoading(true);
@@ -411,8 +421,11 @@ export default function SubmitEventPage() {
           disabled={loading}
           className="w-full bg-black dark:bg-gray-900 text-white py-2 rounded hover:bg-gray-800 dark:hover:bg-gray-700"
         >
-          {loading ? t("form.loading") : t("form.submitButton")}
-        </button>
+        {loading ? t("form.loading") : t("form.submitButton")}
+      </button>
+        {formError && (
+          <p className="text-red-500 text-sm mt-2">{formError}</p>
+        )}
         {success && (
           <p className="text-green-600 dark:text-green-400 mt-2">
             {t("form.successMessage")}
