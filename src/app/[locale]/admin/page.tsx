@@ -23,7 +23,7 @@ export default function AdminPage() {
   const [events, setEvents] = useState<PendingEvent[]>([])
 
   useEffect(() => {
-    if (process.env.VERCEL_ENV !== "production") {
+    if (process.env.VERCEL_ENV === "production") {
       router.replace("/")
       return
     }
@@ -40,7 +40,7 @@ export default function AdminPage() {
     fetchEvents()
   }, [router])
 
-  if (process.env.VERCEL_ENV !== "production") {
+  if (process.env.VERCEL_ENV === "production") {
     return null
   }
 
