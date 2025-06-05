@@ -23,13 +23,14 @@
       "submitButton": "Soumettre",
       "successMessage": "🎉 Merci ! L’événement sera visible après modération. Pour toute modification, écris-nous à hello@carabiner.gay.",
       "submissionBlocked": "La soumission a été bloquée. Réessaie plus tard.",
-      "tagsLabel": "Tags"
+      "tagsLabel": "Tags",
+      "imageLimitError": "Vous pouvez ajouter jusqu’à 15 images maximum.",
+      "imageRequiredError": "Au moins une image est requise."
     }
   },
   "eventList": {
     "viewAllEvents": "Voir tous les événements",
     "description": "Carabiner est un calendrier communautaire queer, créé par des personnes BIPOC à MTL. Les événements sont modérés. Aucune donnée personnelle n’est conservée. Pour toute modif ou question → hello@carabiner.gay",
-   
     "showCalendar": "Afficher le calendrier",
     "hideCalendar": "Masquer le calendrier",
     "noEvents": "Aucun événement à cette date.",
