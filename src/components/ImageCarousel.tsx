@@ -43,22 +43,22 @@ export default function ImageCarousel({ imageUrls }: Props) {
         ))}
       </div>
 
-      {/* Flèche gauche */}
+      {/* Left arrow */}
       <button
         onClick={handlePrev}
         disabled={isSingleImage}
-        className={`absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 p-2 rounded-full shadow ${
+        className={`absolute left-2 top-1/2 transform -translate-y-1/2 bg-white dark:bg-gray-800 bg-opacity-70 p-2 rounded-full shadow ${
           isSingleImage ? 'opacity-50 cursor-not-allowed' : ''
         }`}
       >
         ←
       </button>
 
-      {/* Flèche droite */}
+      {/* Right arrow */}
       <button
         onClick={handleNext}
         disabled={isSingleImage}
-        className={`absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 p-2 rounded-full shadow ${
+        className={`absolute right-2 top-1/2 transform -translate-y-1/2 bg-white dark:bg-gray-800 bg-opacity-70 p-2 rounded-full shadow ${
           isSingleImage ? 'opacity-50 cursor-not-allowed' : ''
         }`}
       >
@@ -72,7 +72,9 @@ export default function ImageCarousel({ imageUrls }: Props) {
             key={idx}
             onClick={() => instanceRef.current?.moveToIdx(idx)}
             className={`w-2 h-2 rounded-full ${
-              currentSlide === idx ? 'bg-pink-600' : 'bg-gray-300'
+              currentSlide === idx
+                ? 'bg-pink-600 dark:bg-pink-400'
+                : 'bg-gray-300 dark:bg-gray-600'
             }`}
           />
         ))}

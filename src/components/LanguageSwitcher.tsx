@@ -23,16 +23,16 @@ export default function LanguageSwitcher() {
     <div className="absolute top-4 right-4 text-sm z-50">
       <button
         onClick={() => setOpen(!open)}
-        className="bg-white border rounded-full px-3 py-1 shadow-sm hover:bg-gray-100"
+        className="bg-white dark:bg-gray-800 border dark:border-gray-600 rounded-full px-3 py-1 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-700"
       >
         {flag} {locale.toUpperCase()}
       </button>
 
       {open && (
-        <div className="mt-2 bg-white border shadow-md rounded-md overflow-hidden absolute right-0">
+        <div className="mt-2 bg-white dark:bg-gray-800 border dark:border-gray-600 shadow-md rounded-md overflow-hidden absolute right-0">
           <button
             onClick={() => switchTo(otherLocale)}
-            className="px-4 py-2 hover:bg-gray-100 block w-full text-left"
+            className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 block w-full text-left"
           >
             {otherLocale === 'fr' ? '🇫🇷 Français' : '🇬🇧 English'}
           </button>
