@@ -17,7 +17,7 @@
       "ticketUrlPlaceholder": "Ticket URL (optional)",
       "loading": "Sending…",
       "submitButton": "Submit",
-      "successMessage": "🎉 Thank you! The event will be visible after moderation.",
+      "successMessage": "🎉 Thank you! The event will be visible after moderation. To edit it later, email us at info@carabiner.gay.",
       "submissionBlocked": "Submission blocked. Please try again later.",
       "tagsLabel": "Tags"
     }
@@ -35,7 +35,7 @@
     "contact": "Contact",
     "title": "About Carabiner",
     "description": "Carabiner is a queer community calendar for Montreal. We don't keep any personal data. To change an event, message us. Want to collaborate, suggest a feature, or just say hi? Drop us a line!",
-    "email": "📫 Write to us at: hello@carabiner.gay"
+    "email": "📫 Write to us at: info@carabiner.gay"
   },
   "admin": {
     "title": "Approve Events",

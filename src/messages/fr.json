@@ -17,7 +17,7 @@
       "ticketUrlPlaceholder": "Lien vers la billetterie (optionnel)",
       "loading": "Envoi…",
       "submitButton": "Soumettre",
-      "successMessage": "🎉 Merci ! L’événement sera visible après modération.",
+      "successMessage": "🎉 Merci ! L’événement sera visible après modération. Pour toute modification, écris-nous à info@carabiner.gay.",
       "submissionBlocked": "La soumission a été bloquée. Réessaie plus tard.",
       "tagsLabel": "Tags"
     }
@@ -35,7 +35,7 @@
     "contact": "Contact",
     "title": "À propos de Carabiner",
     "description": "Carabiner est un calendrier communautaire queer pour Montréal. Nous ne gardons aucune information personnelle. Pour modifier un événement, écris-nous. Tu veux collaborer, suggérer une fonctionnalité ou simplement dire bonjour ? Écris-nous !",
-    "email": "📫 Écris-nous à : hello@carabiner.gay"
+    "email": "📫 Écris-nous à : info@carabiner.gay"
   },
   "admin": {
     "title": "Approuver les événements",
