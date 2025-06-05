@@ -12,6 +12,7 @@ export type Event = {
   date: string;
   location: string;
   tags?: string[];
+  event_url?: string;
 };
 
 
@@ -50,7 +51,18 @@ export  function EventCard({ event }: { event: Event }) {
         </div>
       )}
       <div className="p-4">
+       {event.event_url ? (
+        <a
+          href={event.event_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xl font-semibold mb-1 text-pink-700 dark:text-pink-300 underline"
+        >
+          {event.title}
+        </a>
+      ) : (
         <h3 className="text-xl font-semibold mb-1 text-pink-700 dark:text-pink-300">{event.title}</h3>
+      )}
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{event.location}</p>
         <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
           {new Date(event.date).toLocaleTimeString(undefined, {

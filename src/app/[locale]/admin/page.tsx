@@ -15,6 +15,7 @@ interface PendingEvent {
   date: string
   location: string
   tags?: string[]
+  ticket_url?: string
 }
 
 export default function AdminPage() {
@@ -66,6 +67,7 @@ export default function AdminPage() {
               date: event.date,
               location: event.location,
               tags: event.tags,
+              event_url: event.ticket_url,
             }}
           />
           <button

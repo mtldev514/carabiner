@@ -42,7 +42,7 @@ export default function SubmitEventPage() {
     description_en: "",
     date: "",
     location: "",
-    ticket_url: "",
+    event_url: "",
     tags: [] as string[],
     website: "",
   });
@@ -85,7 +85,7 @@ export default function SubmitEventPage() {
             description_en: form.description_en,
             date: new Date(form.date),
             location: form.location,
-            ticket_url: form.ticket_url,
+            ticket_url: form.event_url,
             tags: form.tags,
           },
         ])
@@ -100,7 +100,7 @@ export default function SubmitEventPage() {
           description_en: "",
           date: "",
           location: "",
-          ticket_url: "",
+          event_url: "",
           tags: [],
           website: "",
         });
@@ -192,9 +192,9 @@ export default function SubmitEventPage() {
         />
         <input
           type="url"
-          name="ticket_url"
-          placeholder={t("form.ticketUrlPlaceholder")}
-          value={form.ticket_url}
+          name="event_url"
+          placeholder={t("form.eventUrlPlaceholder")}
+          value={form.event_url}
           onChange={handleChange}
           className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
         />
