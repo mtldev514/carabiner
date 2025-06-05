@@ -43,21 +43,21 @@ export  function EventCard({ event }: { event: Event }) {
   }, [event.id]);
 
   return (
-    <div className="p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+    <div className="card">
       {imageUrls.length > 0 && (
         <div className="mb-4">
           <ImageCarousel imageUrls={imageUrls} />
         </div>
       )}
-      <h3 className="text-xl font-semibold mb-1 text-pink-700 dark:text-pink-300">{event.title}</h3>
-      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{event.location}</p>
-      <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
+      <h3 className="text-xl font-semibold mb-1 text-[var(--color-accent)]">{event.title}</h3>
+      <p className="text-sm mb-2">{event.location}</p>
+      <p className="text-sm mb-2">
         {new Date(event.date).toLocaleTimeString(undefined, {
           hour: "2-digit",
           minute: "2-digit",
         })}
       </p>
-      <p className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-line">
+      <p className="text-sm whitespace-pre-line">
           {event[descriptionField] || event[otherDescriptionField]}
       </p>
       {event.tags && event.tags.length > 0 && (
@@ -65,7 +65,7 @@ export  function EventCard({ event }: { event: Event }) {
           {event.tags.map((tag) => (
             <span
               key={tag}
-              className="text-xs px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded"
+              className="tag"
             >
               #{tag}
             </span>

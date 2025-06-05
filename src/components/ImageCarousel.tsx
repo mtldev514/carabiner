@@ -47,7 +47,7 @@ export default function ImageCarousel({ imageUrls }: Props) {
       <button
         onClick={handlePrev}
         disabled={isSingleImage}
-        className={`absolute left-2 top-1/2 transform -translate-y-1/2 bg-white dark:bg-gray-800 bg-opacity-70 p-2 rounded-full shadow ${
+        className={`absolute left-2 top-1/2 transform -translate-y-1/2 bg-[var(--color-bg)] bg-opacity-70 p-2 rounded-full shadow ${
           isSingleImage ? 'opacity-50 cursor-not-allowed' : ''
         }`}
       >
@@ -58,7 +58,7 @@ export default function ImageCarousel({ imageUrls }: Props) {
       <button
         onClick={handleNext}
         disabled={isSingleImage}
-        className={`absolute right-2 top-1/2 transform -translate-y-1/2 bg-white dark:bg-gray-800 bg-opacity-70 p-2 rounded-full shadow ${
+        className={`absolute right-2 top-1/2 transform -translate-y-1/2 bg-[var(--color-bg)] bg-opacity-70 p-2 rounded-full shadow ${
           isSingleImage ? 'opacity-50 cursor-not-allowed' : ''
         }`}
       >
@@ -73,8 +73,8 @@ export default function ImageCarousel({ imageUrls }: Props) {
             onClick={() => instanceRef.current?.moveToIdx(idx)}
             className={`w-2 h-2 rounded-full ${
               currentSlide === idx
-                ? 'bg-pink-600 dark:bg-pink-400'
-                : 'bg-gray-300 dark:bg-gray-600'
+                ? 'bg-[var(--color-accent)]'
+                : 'bg-gray-300'
             }`}
           />
         ))}

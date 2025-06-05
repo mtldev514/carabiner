@@ -124,7 +124,7 @@ export default function SubmitEventPage() {
           value={form.title}
           onChange={handleChange}
           required
-          className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
+          className="w-full p-2 border rounded"
         />
         <input
           type="file"
@@ -142,7 +142,7 @@ export default function SubmitEventPage() {
               setImageError(null);
             }
           }}
-          className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
+          className="w-full p-2 border rounded"
         />
 
         {imageError && <p className="text-red-500 text-sm">{imageError}</p>}
@@ -154,7 +154,7 @@ export default function SubmitEventPage() {
                 key={index}
                 src={URL.createObjectURL(file)}
                 alt={`preview-${index}`}
-                className="h-24 object-cover rounded border dark:border-gray-600"
+                className="h-24 object-cover rounded border"
               />
             ))}
           </div>
@@ -164,14 +164,14 @@ export default function SubmitEventPage() {
           placeholder={t("form.description_fr_Placeholder")}
           value={form.description_fr}
           onChange={handleChange}
-          className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
+          className="w-full p-2 border rounded"
         />
         <textarea
           name="description_en"
           placeholder={t("form.description_en_Placeholder")}
           value={form.description_en}
           onChange={handleChange}
-          className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
+          className="w-full p-2 border rounded"
         />
         <input
           type="datetime-local"
@@ -179,7 +179,7 @@ export default function SubmitEventPage() {
           value={form.date}
           onChange={handleChange}
           required
-          className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
+          className="w-full p-2 border rounded"
         />
         <input
           type="text"
@@ -188,7 +188,7 @@ export default function SubmitEventPage() {
           value={form.location}
           onChange={handleChange}
           required
-          className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
+          className="w-full p-2 border rounded"
         />
         <input
           type="url"
@@ -196,7 +196,7 @@ export default function SubmitEventPage() {
           placeholder={t("form.ticketUrlPlaceholder")}
           value={form.ticket_url}
           onChange={handleChange}
-          className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
+          className="w-full p-2 border rounded"
         />
 
         <div className="flex space-x-4 text-sm">
@@ -231,12 +231,12 @@ export default function SubmitEventPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-black dark:bg-gray-900 text-white py-2 rounded hover:bg-gray-800 dark:hover:bg-gray-700"
+          className="button w-full"
         >
           {loading ? t("form.loading") : t("form.submitButton")}
         </button>
         {success && (
-          <p className="text-green-600 dark:text-green-400 mt-2">{t("form.successMessage")}</p>
+          <p className="mt-2 text-[var(--color-success)]">{t("form.successMessage")}</p>
         )}
       </form>
     </div>

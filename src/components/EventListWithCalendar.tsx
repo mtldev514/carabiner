@@ -69,7 +69,7 @@ export default function EventListWithCalendar() {
     <div className="p-4 max-w-2xl mx-auto">
       {selectedDate && (
         <button
-          className="text-sm text-blue-600 dark:text-blue-400 underline mb-4"
+          className="text-sm underline text-[var(--color-link)]"
           onClick={() => setSelectedDate(null)}
         >
           {t("viewAllEvents")}
@@ -78,7 +78,7 @@ export default function EventListWithCalendar() {
 
       <button
         onClick={() => setShowCalendar(!showCalendar)}
-        className="mb-4 text-sm text-blue-600 dark:text-blue-400 underline"
+        className="mb-4 text-sm underline text-[var(--color-link)]"
       >
         {showCalendar ? t("hideCalendar") : t("showCalendar")}
       </button>
@@ -133,12 +133,12 @@ export default function EventListWithCalendar() {
       </AnimatePresence>
 
       {sortedDates.length === 0 && (
-        <p className="text-center text-gray-500 dark:text-gray-400">{t("noEvents")}</p>
+        <p className="text-center text-[color:var(--color-text)]/60">{t("noEvents")}</p>
       )}
 
       {sortedDates.map((date) => (
         <div key={date} className="mb-6">
-          <h2 className="text-lg font-bold mb-2 text-pink-600 dark:text-pink-400">
+          <h2 className="text-lg font-bold mb-2 text-[var(--color-accent)]">
             {new Intl.DateTimeFormat(locale, {
               weekday: "long",
               day: "numeric",

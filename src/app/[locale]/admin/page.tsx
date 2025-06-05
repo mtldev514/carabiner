@@ -42,7 +42,7 @@ export default function AdminPage() {
     <div className="p-4 max-w-2xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">{t("title")}</h1>
       {events.length === 0 && (
-        <p className="text-gray-600">{t("noPending")}</p>
+        <p>{t("noPending")}</p>
       )}
       {events.map((event) => (
         <div key={event.id} className="mb-6">
@@ -59,7 +59,8 @@ export default function AdminPage() {
           />
           <button
             onClick={() => approve(event.id)}
-            className="mt-2 px-3 py-1 bg-green-600 text-white rounded"
+            className="button mt-2"
+            style={{ backgroundColor: 'var(--color-success)', color: 'var(--color-text)' }}
           >
             {t("approveButton")}
           </button>

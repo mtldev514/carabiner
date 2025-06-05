@@ -1,28 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600&family=Patrick+Hand&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #fafafa;
-  --foreground: #171717;
-}
+  --color-bg: #F5F5F2;
+  --color-text: #1C1C1C;
+  --color-accent: #C25B4C;
+  --color-link: #A2C6DB;
+  --color-success: #B5CDA3;
+  --color-card-bg: #FFF8E7;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-title: 'Cormorant Garamond', serif;
+  --font-body: 'Inter', sans-serif;
+  --font-hand: 'Patrick Hand', cursive;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-  transition: background-color 0.3s, color 0.3s;
-  color-scheme: light dark;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  color-scheme: light;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-title);
+  color: var(--color-text);
+}
+
+a {
+  color: var(--color-link);
+  text-decoration: underline;
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+.button {
+  background-color: var(--color-accent);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+.button:hover {
+  background-color: var(--color-text);
+}
+
+.card {
+  background-color: var(--color-card-bg);
+  border: 1px dashed var(--color-text);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.tag {
+  display: inline-block;
+  background-color: var(--color-link);
+  color: var(--color-text);
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  margin-right: 0.25rem;
+}
+
+.handwritten {
+  font-family: var(--font-hand);
+}
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.9rem;
+  color: var(--color-text);
 }
