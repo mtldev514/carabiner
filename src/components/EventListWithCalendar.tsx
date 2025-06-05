@@ -1,11 +1,11 @@
 "use client";
 
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import "react-calendar/dist/Calendar.css";
-import { format, startOfDay } from "date-fns";
+import { format, startOfDay, addDays } from "date-fns";
 import { fr, enUS } from "date-fns/locale";
 import { supabase } from "@/app/utils/supabaseClient";
 import {EventCard, Event} from "./EventCard";
@@ -19,6 +19,7 @@ export default function EventListWithCalendar() {
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const today = startOfDay(new Date());
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -31,7 +32,11 @@ export default function EventListWithCalendar() {
       if (data) {
         const today = startOfDay(new Date());
         const mapped = data.map((e) => ({ ...e, event_url: e.ticket_url }));
-        setEvents(mapped.filter((e) => new Date(e.date) >= today));
+        setEvents(
+          mapped.filter((e) =>
+            new Date(e.end_date ?? e.date) >= today
+          )
+        );
       }
     };
 
@@ -39,28 +44,35 @@ export default function EventListWithCalendar() {
   }, []);
 
   let filteredEvents = events;
-  if (selectedDate) {
-    filteredEvents = filteredEvents.filter(
-      (event) =>
-        format(new Date(event.date), "yyyy-MM-dd") ===
-        format(selectedDate, "yyyy-MM-dd")
-    );
-  }
   if (selectedTags.length > 0) {
     filteredEvents = filteredEvents.filter((event) =>
       event.tags?.some((tag) => selectedTags.includes(tag))
     );
   }
 
-  const grouped = filteredEvents.reduce<Record<string, Event[]>>(
-    (acc, event) => {
-      const dateKey = format(new Date(event.date), "yyyy-MM-dd");
-      if (!acc[dateKey]) acc[dateKey] = [];
-      acc[dateKey].push(event);
+  const groupByDay = (evts: Event[]) =>
+    evts.reduce<Record<string, Event[]>>((acc, event) => {
+      const start = startOfDay(new Date(event.date));
+      const end = event.end_date
+        ? startOfDay(new Date(event.end_date))
+        : start;
+      for (let d = new Date(start); d <= end; d = addDays(d, 1)) {
+        const key = format(d, "yyyy-MM-dd");
+        if (!acc[key]) acc[key] = [];
+        acc[key].push(event);
+      }
       return acc;
-    },
-    {}
+    }, {});
+
+  const allGrouped = groupByDay(filteredEvents);
+  const upcomingGrouped = Object.fromEntries(
+    Object.entries(allGrouped).filter(([date]) => new Date(date) >= today)
   );
+  let grouped = upcomingGrouped;
+  if (selectedDate) {
+    const key = format(selectedDate, "yyyy-MM-dd");
+    grouped = { [key]: allGrouped[key] ?? [] };
+  }
 
   const sortedDates = Object.keys(grouped).sort(
     (a, b) => new Date(a).getTime() - new Date(b).getTime()

@@ -41,6 +41,7 @@ export default function SubmitEventPage() {
     description_fr: "",
     description_en: "",
     date: "",
+    end_date: "",
     location: "",
     event_url: "",
     tags: [] as string[],
@@ -84,6 +85,7 @@ export default function SubmitEventPage() {
             description_fr: form.description_fr,
             description_en: form.description_en,
             date: new Date(form.date),
+            end_date: form.end_date ? new Date(form.end_date) : null,
             location: form.location,
             ticket_url: form.event_url,
             tags: form.tags,
@@ -99,6 +101,7 @@ export default function SubmitEventPage() {
           description_fr: "",
           description_en: "",
           date: "",
+          end_date: "",
           location: "",
           event_url: "",
           tags: [],
@@ -179,6 +182,13 @@ export default function SubmitEventPage() {
           value={form.date}
           onChange={handleChange}
           required
+          className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
+        />
+        <input
+          type="datetime-local"
+          name="end_date"
+          value={form.end_date}
+          onChange={handleChange}
           className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
         />
         <input

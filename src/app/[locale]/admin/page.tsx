@@ -13,6 +13,7 @@ interface PendingEvent {
   description_en?: string
   description?: string
   date: string
+  end_date?: string | null
   location: string
   tags?: string[]
   ticket_url?: string
@@ -65,6 +66,7 @@ export default function AdminPage() {
               description_en: event.description_en|| "",
               description_fr: event.description_fr  || "",
               date: event.date,
+              end_date: event.end_date,
               location: event.location,
               tags: event.tags,
               event_url: event.ticket_url,
