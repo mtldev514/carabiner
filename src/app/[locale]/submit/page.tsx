@@ -1,6 +1,7 @@
 "use client"; // ← seulement si tu es en App Router
 import { v4 as uuidv4 } from "uuid"; // npm install uuid
 import { useState } from "react";
+import ImageCropper from "@/components/ImageCropper";
 import { supabase } from "../../utils/supabaseClient";
 import { useTranslations } from "next-intl";
 import TagChip from "@/components/TagChip";
@@ -35,6 +36,8 @@ const uploadImages = async (eventId: string, images: File[]) => {
 export default function SubmitEventPage() {
   const [images, setImages] = useState<File[]>([]);
   const [imageError, setImageError] = useState<string | null>(null);
+  const [cropIndex, setCropIndex] = useState<number | null>(null);
+  const [cropSrc, setCropSrc] = useState<string | null>(null);
   const t = useTranslations("submit");
 
   const [form, setForm] = useState({
@@ -153,15 +156,42 @@ export default function SubmitEventPage() {
 
         {images.length > 0 && (
           <div className="grid grid-cols-3 gap-2 mt-2">
-            {images.map((file, index) => (
-              <img
-                key={index}
-                src={URL.createObjectURL(file)}
-                alt={`preview-${index}`}
-                className="h-24 object-cover rounded border dark:border-gray-600"
-              />
-            ))}
+            {images.map((file, index) => {
+              const url = URL.createObjectURL(file)
+              return (
+                <div key={index} className="relative">
+                  <img
+                    src={url}
+                    alt={`preview-${index}`}
+                    className="h-24 w-full object-cover rounded border dark:border-gray-600"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCropIndex(index)
+                      setCropSrc(url)
+                    }}
+                    className="absolute bottom-1 right-1 bg-white bg-opacity-80 text-xs px-1 rounded"
+                  >
+                    Crop
+                  </button>
+                </div>
+              )
+            })}
           </div>
+        )}
+
+        {cropIndex !== null && cropSrc && (
+          <ImageCropper
+            imageSrc={cropSrc}
+            onCancel={() => setCropIndex(null)}
+            onComplete={(file) => {
+              setImages((prev) =>
+                prev.map((img, i) => (i === cropIndex ? file : img))
+              )
+              setCropIndex(null)
+            }}
+          />
         )}
         <textarea
           name="description_fr"
