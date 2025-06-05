@@ -165,7 +165,7 @@ export default function EventListWithCalendar() {
           </h2>
           <ul className="flex flex-wrap gap-4">
             {grouped[date].map((event) => (
-              <li key={event.id} className="flex-1 min-w-[250px]">
+              <li key={event.id} className="w-[250px] flex-none">
                 <EventCard event={event} />
               </li>
             ))}
