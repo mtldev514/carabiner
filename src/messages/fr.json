@@ -14,7 +14,7 @@
       "description_fr_Placeholder": "Description in French",
       "description_en_Placeholder": "Description in English",
       "locationPlaceholder": "Lieu",
-      "ticketUrlPlaceholder": "Lien vers la billetterie (optionnel)",
+      "eventUrlPlaceholder": "Lien vers l'événement (optionnel)",
       "loading": "Envoi…",
       "submitButton": "Soumettre",
       "successMessage": "🎉 Merci ! L’événement sera visible après modération. Pour toute modification, écris-nous à info@carabiner.gay.",
