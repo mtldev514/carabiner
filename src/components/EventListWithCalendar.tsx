@@ -9,6 +9,7 @@ import { format, startOfDay, addDays } from "date-fns";
 import { fr, enUS } from "date-fns/locale";
 import { supabase } from "@/app/utils/supabaseClient";
 import {EventCard, Event} from "./EventCard";
+import TagChip from "./TagChip";
 
 
 export default function EventListWithCalendar() {
@@ -98,28 +99,25 @@ export default function EventListWithCalendar() {
       </button>
       */}
 
-      <div className="mb-4 text-sm">
+      <div className="mb-4 text-sm flex gap-3">
         {/* <span className="mr-2">{t("filterByTag")}: </span> */}
         {[
           "artsy",
           "chill",
           "party",
         ].map((tag) => (
-          <label key={tag} className="mr-3">
-            <input
-              type="checkbox"
-              className="mr-1"
-              checked={selectedTags.includes(tag)}
-              onChange={() =>
-                setSelectedTags((prev) =>
-                  prev.includes(tag)
-                    ? prev.filter((t) => t !== tag)
-                    : [...prev, tag]
-                )
-              }
-            />
-            #{tag}
-          </label>
+          <TagChip
+            key={tag}
+            tag={tag}
+            selected={selectedTags.includes(tag)}
+            onToggle={() =>
+              setSelectedTags((prev) =>
+                prev.includes(tag)
+                  ? prev.filter((t) => t !== tag)
+                  : [...prev, tag]
+              )
+            }
+          />
         ))}
       </div>
 
