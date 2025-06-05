@@ -13,7 +13,7 @@ jest.mock('next-intl', () => ({
 }))
 
 describe('LanguageSwitcher', () => {
-  it('changes language and updates router path', () => {
+  it('switches locale when clicked', () => {
     const replace = jest.fn()
     ;(useRouter as jest.Mock).mockReturnValue({ replace })
     ;(usePathname as jest.Mock).mockReturnValue('/en/about')
@@ -21,8 +21,7 @@ describe('LanguageSwitcher', () => {
 
     render(<LanguageSwitcher />)
 
-    fireEvent.click(screen.getByRole('button', { name: /en/i }))
-    fireEvent.click(screen.getByRole('button', { name: /français/i }))
+    fireEvent.click(screen.getByRole('button'))
 
     expect(replace).toHaveBeenCalledWith('/fr/about')
   })
