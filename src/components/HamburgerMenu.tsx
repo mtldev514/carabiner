@@ -31,7 +31,7 @@ export default function HamburgerMenu() {
           <Link href="/contact" className="block hover:text-pink-600 dark:hover:text-pink-400" onClick={() => setOpen(false)}>
             {t('contact')}
           </Link>
-          <LanguageSwitcher className="relative" />
+          <LanguageSwitcher onSwitch={() => setOpen(false)} />
         </div>
       )}
     </div>

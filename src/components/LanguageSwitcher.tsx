@@ -5,9 +5,11 @@ import { useLocale } from 'next-intl'
 
 
 export default function LanguageSwitcher({
-  className = 'absolute top-4 right-4',
+  className = '',
+  onSwitch,
 }: {
   className?: string
+  onSwitch?: () => void
 }) {
   const locale = useLocale()
   const router = useRouter()
@@ -16,15 +18,16 @@ export default function LanguageSwitcher({
   const otherLocale = locale === 'fr' ? 'en' : 'fr'
   const flag = otherLocale === 'fr' ? '🇫🇷' : '🇬🇧'
 
-  const switchTo = (newLocale: string) => {
-    const newPath = pathname.replace(/^\/(fr|en)/, `/${newLocale}`)
+  const switchTo = () => {
+    const newPath = pathname.replace(/^\/(fr|en)/, `/${otherLocale}`)
     router.replace(newPath)
+    onSwitch?.()
   }
 
   return (
     <button
-      onClick={() => switchTo(otherLocale)}
-      className={`bg-white dark:bg-gray-800 border dark:border-gray-600 rounded-full px-3 py-1 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-sm z-50 ${className}`}
+      onClick={switchTo}
+      className={`block hover:text-pink-600 dark:hover:text-pink-400 ${className}`}
     >
       {flag} {otherLocale.toUpperCase()}
     </button>
