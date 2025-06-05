@@ -6,7 +6,7 @@ import "keen-slider/keen-slider.min.css";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Carabiner",
+  title: "Carabiner.gay",
   description: "Calendrier communautaire queer",
 };
 
@@ -24,7 +24,7 @@ export default function RootLayout({
           <main className="flex-1">
             <nav className="flex justify-between items-center p-4 bg-white dark:bg-gray-900 shadow-md mb-6 border-b dark:border-gray-800">
               <Link href={`/${params.locale}`} className="text-xl font-semibold tracking-tight">
-                Carabiner
+                CARABINER.GAY
               </Link>
               <HamburgerMenu />
             </nav>
