@@ -22,9 +22,6 @@ export default function HamburgerMenu() {
       </button>
       {open && (
         <div className="absolute right-0 mt-2 bg-white dark:bg-gray-900 border dark:border-gray-800 shadow-md rounded-md p-4 z-50 space-y-2 text-sm">
-          <Link href="/" className="block hover:text-pink-600 dark:hover:text-pink-400" onClick={() => setOpen(false)}>
-            {t('home')}
-          </Link>
           <Link href="/submit" className="block hover:text-pink-600 dark:hover:text-pink-400" onClick={() => setOpen(false)}>
             {t('submit')}
           </Link>
