@@ -2,7 +2,7 @@ import Image from "next/image";
 import ImageCarousel from "./ImageCarousel";
 import { supabase } from "@/app/utils/supabaseClient";
 import { useEffect, useState } from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 export type Event = {
   id: string;
@@ -11,7 +11,10 @@ export type Event = {
   description_fr: string;
   date: string;
   end_date?: string | null;
-  location: string;
+  city: string;
+  address?: string | null;
+  address_visibility: "public" | "ticket_holder";
+  location?: string;
   tags?: string[];
   event_url?: string;
 };
@@ -21,6 +24,7 @@ export type Event = {
 
 export  function EventCard({ event }: { event: Event }) {
   const locale = useLocale();
+  const t = useTranslations();
   const descriptionField = locale === "fr" ? "description_fr" : "description_en";
   const otherDescriptionField = locale === "fr" ? "description_en" : "description_fr";
   const [imageUrls, setImageUrls] = useState<string[]>([]);
@@ -63,7 +67,14 @@ export  function EventCard({ event }: { event: Event }) {
       ) : (
         <h3 className="text-xl font-semibold mb-1 text-pink-700 dark:text-pink-300">{event.title}</h3>
       )}
-      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{event.location}</p>
+      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+        {event.address_visibility === "public" ? event.address : event.city}
+      </p>
+      {event.address_visibility === "ticket_holder" && (
+        <p className="text-xs italic text-gray-500 dark:text-gray-400 mb-2">
+          {t("eventCard.privateAddressNote")}
+        </p>
+      )}
       <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
         {new Date(event.date).toLocaleString(undefined, {
           hour: "2-digit",
