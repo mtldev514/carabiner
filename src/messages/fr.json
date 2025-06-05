@@ -2,22 +2,22 @@
   "nav": {
     "home": "Accueil",
     "submit": "Soumettre",
-    "contact": "Nous",
+    "contact": "À propos",
     "admin": "Admin"
   },
-  "description": "Carabiner est une plateforme communautaire pour partager des événements au sein de la communauté queer de Montréal. C’est une initiative queer et BIPOC. Tous les événements sont modérés et nous ne conservons aucune information personnelle. Pour modifier un événement, écris-nous. L’objectif de cette plateforme est d’offrir une alternative à l’univers de Zuckerberg. Ce n’est pas parfait — mais c’est un début.",
+  "description": "Carabiner est un calendrier communautaire pour la communauté queer de Montréal. C'est une initiative queer et BIPOC. Tous les événements sont modérés et aucune donnée personnelle n'est conservée. Besoin de modifier un événement, de proposer une fonctionnalité ou simplement de dire bonjour ? Écris-nous ! C'est notre alternative au Zuckerverse : ce n'est pas parfait, mais c'est un début.",
   "submit": {
     "title": "Soumettre un événement",
     "button": "Envoyer",
     "form": {
       "titlePlaceholder": "Titre",
-      "description_fr_Placeholder": "Description in French",
-      "description_en_Placeholder": "Description in English",
+      "description_fr_Placeholder": "Description en français",
+      "description_en_Placeholder": "Description en anglais",
       "locationPlaceholder": "Lieu",
       "eventUrlPlaceholder": "Lien vers l'événement (optionnel)",
       "loading": "Envoi…",
       "submitButton": "Soumettre",
-      "successMessage": "🎉 Merci ! L’événement sera visible après modération. Pour toute modification, écris-nous à info@carabiner.gay.",
+      "successMessage": "🎉 Merci ! L’événement sera visible après modération. Pour toute modification, écris-nous à hello@carabiner.gay.",
       "submissionBlocked": "La soumission a été bloquée. Réessaie plus tard.",
       "tagsLabel": "Tags"
     }
@@ -34,8 +34,8 @@
     "addEvent": "Ajouter un événement",
     "contact": "Contact",
     "title": "À propos de Carabiner",
-    "description": "Carabiner est un calendrier communautaire queer pour Montréal. Nous ne gardons aucune information personnelle. Pour modifier un événement, écris-nous. Tu veux collaborer, suggérer une fonctionnalité ou simplement dire bonjour ? Écris-nous !",
-    "email": "📫 Écris-nous à : info@carabiner.gay"
+    "description": "Carabiner est un calendrier communautaire pour la communauté queer de Montréal. C'est une initiative queer et BIPOC. Tous les événements sont modérés et aucune donnée personnelle n'est conservée. Besoin de modifier un événement, de proposer une fonctionnalité ou simplement de dire bonjour ? Écris-nous ! C'est notre alternative au Zuckerverse : ce n'est pas parfait, mais c'est un début.",
+    "email": "📫 Écris-nous à : hello@carabiner.gay"
   },
   "admin": {
     "title": "Approuver les événements",

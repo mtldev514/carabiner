@@ -5,7 +5,7 @@
      "contact": "About Us",
     "admin": "Admin"
   },
-  "description": "Carabiner is a community-driven platform for sharing events in the Queer community of Montreal. It's a queer & bipoc initiative. All events are moderated, and we keep no personal data. To edit an event, send us a message. The goal of this platform is to offer an alternative to the Zuckerverse. It is not perfect—but it is a start.",
+  "description": "Carabiner is a community calendar for Montreal's queer community. It's a queer & bipoc initiative. Every event is moderated and no personal data is kept. Need to update an event, suggest a feature, or just say hi? Drop us a line! It's our alternative to the Zuckerverse—it isn't perfect, but it's a start.",
   "submit": {
     "title": "Submit an Event",
     "button": "Send",
@@ -17,7 +17,7 @@
       "eventUrlPlaceholder": "Event URL (optional)",
       "loading": "Sending…",
       "submitButton": "Submit",
-      "successMessage": "🎉 Thank you! The event will be visible after moderation. To edit it later, email us at info@carabiner.gay.",
+      "successMessage": "🎉 Thank you! The event will be visible after moderation. To edit it later, email us at hello@carabiner.gay.",
       "submissionBlocked": "Submission blocked. Please try again later.",
       "tagsLabel": "Tags"
     }
@@ -34,8 +34,8 @@
     "addEvent": "Add Event",
     "contact": "Contact",
     "title": "About Carabiner",
-    "description": "Carabiner is a queer community calendar for Montreal. We don't keep any personal data. To change an event, message us. Want to collaborate, suggest a feature, or just say hi? Drop us a line!",
-    "email": "📫 Write to us at: info@carabiner.gay"
+    "description": "Carabiner is a community calendar for Montreal's queer community. It's a queer & bipoc initiative. Every event is moderated and no personal data is kept. Need to update an event, suggest a feature, or just say hi? Drop us a line! It's our alternative to the Zuckerverse—it isn't perfect, but it's a start.",
+    "email": "📫 Write to us at: hello@carabiner.gay"
   },
   "admin": {
     "title": "Approve Events",
