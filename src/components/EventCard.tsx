@@ -15,6 +15,7 @@ export type Event = {
 
 
 
+
 export  function EventCard({ event }: { event: Event }) {
   const locale = useLocale();
   const descriptionField = locale === "fr" ? "description_fr" : "description_en";
