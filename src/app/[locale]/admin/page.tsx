@@ -49,8 +49,8 @@ export default function AdminPage() {
             event={{
               id: event.id,
               title: event.title,
-              description:
-                event.description_en || event.description_fr || event.description || "",
+              description_en: event.description_en|| "",
+              description_fr: event.description_fr  || "",
               date: event.date,
               location: event.location,
             }}
