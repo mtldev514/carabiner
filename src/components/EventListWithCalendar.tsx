@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import "react-calendar/dist/Calendar.css";
 import { format, startOfDay, addDays } from "date-fns";
-import { fr, enUS } from "date-fns/locale";
+import { fr, enUS, es } from "date-fns/locale";
 import { supabase } from "@/app/utils/supabaseClient";
 import {EventCard, Event} from "./EventCard";
 import TagChip from "./TagChip";
@@ -15,7 +15,7 @@ import TagChip from "./TagChip";
 export default function EventListWithCalendar() {
   const t = useTranslations("eventList");
   const locale = useLocale();
-  const calendarLocale = locale === "fr" ? fr : enUS;
+  const calendarLocale = locale === "fr" ? fr : locale === "es" ? es : enUS;
   const [showCalendar, setShowCalendar] = useState(false);
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);

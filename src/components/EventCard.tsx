@@ -9,6 +9,7 @@ export type Event = {
   title: string;
   description_en: string;
   description_fr: string;
+  description_es: string;
   date: string;
   end_date?: string | null;
   city: string;
@@ -25,8 +26,14 @@ export type Event = {
 export  function EventCard({ event }: { event: Event }) {
   const locale = useLocale();
   const t = useTranslations();
-  const descriptionField = locale === "fr" ? "description_fr" : "description_en";
-  const otherDescriptionField = locale === "fr" ? "description_en" : "description_fr";
+  const descriptionField =
+    locale === "fr"
+      ? "description_fr"
+      : locale === "es"
+      ? "description_es"
+      : "description_en";
+  const otherDescriptionField =
+    locale === "fr" ? "description_en" : "description_fr";
   const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   useEffect(() => {

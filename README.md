@@ -1,11 +1,11 @@
 # Carabiner – A Queer Community Calendar
 
-**Carabiner** is a bilingual web app designed to help the queer community of Montréal discover, share, and connect through events. Named after the climbing tool that links things together, Carabiner aims to build bridges within the community — one event at a time.
+**Carabiner** is a multilingual web app designed to help the queer community of Montréal discover, share, and connect through events. Named after the climbing tool that links things together, Carabiner aims to build bridges within the community — one event at a time.
 
 ## ✨ What It Does
 
 - **Event Discovery**: Browse upcoming events in a clean, date-organized feed.  
-- **Multilingual Support**: The app is fully bilingual (French/English), including all event content.  
+- **Multilingual Support**: The app is now available in French, English and Spanish (with Mexican terminology), including all event content.
 - **Community Contributions**: Anyone can submit an event. Submissions go through moderation before being published.  
 - **Rich Event Cards**: Events include images, time, location, and multilingual descriptions.  
 - **Built for Mobile & Desktop**: The interface is responsive, smooth, and accessible.  
