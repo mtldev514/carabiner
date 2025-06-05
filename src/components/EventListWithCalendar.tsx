@@ -79,7 +79,9 @@ export default function EventListWithCalendar() {
   );
 
   return (
+    
     <div className="p-4 max-w-2xl mx-auto">
+       <p className="text-gray-700 dark:text-gray-300 mb-6">{t('description')}</p>
       {selectedDate && (
         <button
           className="text-sm text-blue-600 dark:text-blue-400 underline mb-4"

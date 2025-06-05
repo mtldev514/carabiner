@@ -25,9 +25,6 @@ export default function HamburgerMenu() {
           <Link href="/submit" className="block hover:text-pink-600 dark:hover:text-pink-400" onClick={() => setOpen(false)}>
             {t('submit')}
           </Link>
-          <Link href="/contact" className="block hover:text-pink-600 dark:hover:text-pink-400" onClick={() => setOpen(false)}>
-            {t('contact')}
-          </Link>
           <LanguageSwitcher onSwitch={() => setOpen(false)} />
         </div>
       )}
