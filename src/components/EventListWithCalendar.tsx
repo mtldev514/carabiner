@@ -76,15 +76,17 @@ export default function EventListWithCalendar() {
         </button>
       )}
 
+      {/*
       <button
         onClick={() => setShowCalendar(!showCalendar)}
         className="mb-4 text-sm text-blue-600 dark:text-blue-400 underline"
       >
         {showCalendar ? t("hideCalendar") : t("showCalendar")}
       </button>
+      */}
 
       <div className="mb-4 text-sm">
-        <span className="mr-2">{t("filterByTag")}:</span>
+        {/* <span className="mr-2">{t("filterByTag")}: </span> */}
         {[
           "artsy",
           "chill",
@@ -108,6 +110,7 @@ export default function EventListWithCalendar() {
         ))}
       </div>
 
+      {/*
       <AnimatePresence initial={false}>
         {showCalendar && (
           <motion.div
@@ -131,6 +134,7 @@ export default function EventListWithCalendar() {
           </motion.div>
         )}
       </AnimatePresence>
+      */}
 
       {sortedDates.length === 0 && (
         <p className="text-center text-gray-500 dark:text-gray-400">{t("noEvents")}</p>
