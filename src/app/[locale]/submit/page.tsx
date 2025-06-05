@@ -1,5 +1,5 @@
-"use client"; // ← seulement si tu es en App Router
-import { v4 as uuidv4 } from "uuid"; // npm install uuid
+"use client";
+import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect } from "react";
 import { supabase } from "../../utils/supabaseClient";
 import { useTranslations, useLocale } from "next-intl";
@@ -9,8 +9,6 @@ const uploadImages = async (eventId: string, images: File[]) => {
   const uploads = images.map(async (image, index) => {
     const fileExt = image.type?.split("/").pop() || "jpg";
     const fileName = `${eventId}/${uuidv4()}.${fileExt}`;
-    console.log("Uploading file:", fileName);
-    console.log(image instanceof File); // true
 
     const { data, error } = await supabase.storage
       .from("event-photos")
@@ -19,7 +17,6 @@ const uploadImages = async (eventId: string, images: File[]) => {
     if (error) {
       console.error("Upload error:", error.message);
     } else {
-      console.log("File uploaded:", fileName);
 
       await supabase.from("event_images").insert({
         event_id: eventId,
@@ -65,7 +62,7 @@ export default function SubmitEventPage() {
         `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=${encodeURIComponent(
           addressQuery
         )}`,
-        { signal: controller.signal, headers: { "Accept-Language": "fr" } }
+        { signal: controller.signal, headers: { "Accept-Language": locale } }
       )
         .then((res) => res.json())
         .then((data) => setAddressSuggestions(data))
@@ -87,7 +84,7 @@ export default function SubmitEventPage() {
     e.preventDefault();
 
     if (images.length === 0) {
-      setImageError("Au moins une image est requise.");
+      setImageError(t("form.imageRequiredError"));
       return;
     }
     setLoading(true);
@@ -168,12 +165,14 @@ export default function SubmitEventPage() {
           accept="image/*"
           multiple
           required
+          lang={locale}
+          aria-label={t("form.imageInputLabel")}
           onChange={(e) => {
             const files = Array.from(e.target.files || []);
             if (files.length > 15) {
-              setImageError("Vous pouvez ajouter jusqu’à 15 images maximum.");
+              setImageError(t("form.imageLimitError"));
             } else if (files.length === 0) {
-              setImageError("Au moins une image est requise.");
+              setImageError(t("form.imageRequiredError"));
             } else {
               setImages(files);
               setImageError(null);
@@ -223,6 +222,8 @@ export default function SubmitEventPage() {
           name="date"
           value={form.date}
           onChange={handleChange}
+          lang={locale}
+          aria-label={t("form.startDateLabel")}
           required
           className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
         />
@@ -231,6 +232,8 @@ export default function SubmitEventPage() {
           name="end_date"
           value={form.end_date}
           onChange={handleChange}
+          lang={locale}
+          aria-label={t("form.endDateLabel")}
           className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
         />
         <select

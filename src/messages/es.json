@@ -23,7 +23,12 @@
       "submitButton": "Enviar",
       "successMessage": "🎉 ¡Gracias! El evento será visible después de la moderación. Para editarlo más tarde, escríbenos a hello@carabiner.gay.",
       "submissionBlocked": "Envío bloqueado. Intenta más tarde.",
-      "tagsLabel": "Etiquetas"
+      "tagsLabel": "Etiquetas",
+      "imageLimitError": "Puedes agregar hasta 15 imágenes como máximo.",
+      "imageRequiredError": "Se requiere al menos una imagen.",
+      "imageInputLabel": "Imágenes del evento (hasta 15)",
+      "startDateLabel": "Fecha y hora de inicio",
+      "endDateLabel": "Fecha y hora de fin"
     }
   },
   "eventList": {
