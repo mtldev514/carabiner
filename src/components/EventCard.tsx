@@ -43,7 +43,7 @@ export  function EventCard({ event }: { event: Event }) {
   }, [event.id]);
 
   return (
-    <div className="w-fit max-w-[400px] rounded-lg shadow-md border border-gray-200 dark:border-gray-700 border-[0.5px] bg-white dark:bg-gray-800">
+    <div className="w-[400px] rounded-lg shadow-md border-[0.5px] border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
       {imageUrls.length > 0 && (
         <div className="mb-4">
           <ImageCarousel imageUrls={imageUrls} />
