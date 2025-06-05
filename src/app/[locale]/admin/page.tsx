@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import { supabase } from "../../utils/supabaseClient"
 import { EventCard } from "@/components/EventCard"
 import { useTranslations } from "next-intl"
@@ -17,10 +18,16 @@ interface PendingEvent {
 }
 
 export default function AdminPage() {
+  const router = useRouter()
   const t = useTranslations("admin")
   const [events, setEvents] = useState<PendingEvent[]>([])
 
   useEffect(() => {
+    if (process.env.NODE_ENV === "production") {
+      router.replace("/")
+      return
+    }
+
     const fetchEvents = async () => {
       const { data } = await supabase
         .from("events")
@@ -31,7 +38,11 @@ export default function AdminPage() {
     }
 
     fetchEvents()
-  }, [])
+  }, [router])
+
+  if (process.env.NODE_ENV === "production") {
+    return null
+  }
 
   const approve = async (id: string) => {
     await supabase.from("events").update({ approved: true }).eq("id", id)
