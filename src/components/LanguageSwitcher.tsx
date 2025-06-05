@@ -16,7 +16,7 @@ export default function LanguageSwitcher({
   const pathname = usePathname()
 
   const otherLocale = locale === 'fr' ? 'en' : 'fr'
-  const flag = otherLocale === 'fr' ? '🇫🇷' : '🇬🇧'
+  const flag = otherLocale === 'fr' ? '🏳️‍⚜️' : '🇨🇦'
 
   const switchTo = () => {
     const newPath = pathname.replace(/^\/(fr|en)/, `/${otherLocale}`)
