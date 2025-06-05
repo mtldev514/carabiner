@@ -153,9 +153,11 @@ export default function EventListWithCalendar() {
         <p className="text-center text-gray-500 dark:text-gray-400">{t("noEvents")}</p>
       )}
 
-      <div className="flex flex-wrap gap-6">
+      <div
+        className="grid gap-6 [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]"
+      >
         {sortedDates.map((date) => (
-          <div key={date} className="flex flex-col flex-1 min-w-[300px] mb-6">
+          <div key={date} className="flex flex-col mb-6">
             <h2 className="text-lg font-bold mb-2 text-pink-600 dark:text-pink-400">
               {new Intl.DateTimeFormat(locale, {
                 weekday: "long",
