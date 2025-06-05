@@ -16,7 +16,7 @@ export default function LanguageSwitcher({
   const pathname = usePathname()
 
   const otherLocale = locale === 'fr' ? 'en' : 'fr'
-  const flag = otherLocale === 'fr' ? '🏳️‍⚜️' : '🇨🇦'
+  // const flag = otherLocale === 'fr' ? '🏳️‍⚜️' : '🇨🇦'
 
   const switchTo = () => {
     const newPath = pathname.replace(/^\/(fr|en)/, `/${otherLocale}`)
@@ -29,7 +29,7 @@ export default function LanguageSwitcher({
       onClick={switchTo}
       className={`block hover:text-pink-600 dark:hover:text-pink-400 ${className}`}
     >
-      {flag} {otherLocale.toUpperCase()}
+       {otherLocale.toUpperCase()}
     </button>
   )
 }
