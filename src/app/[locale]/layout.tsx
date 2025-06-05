@@ -23,7 +23,7 @@ export default function RootLayout({
         <NextIntlClientProvider>
           <main className="flex-1">
             <nav
-              className="flex justify-between items-center p-4 bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 dark:from-pink-700 dark:via-purple-700 dark:to-blue-700 shadow-md mb-6 border-b dark:border-gray-800 text-white rounded-b-lg"
+              className="flex justify-between items-center p-4 bg-gradient-to-r from-emerald-400 via-sky-400 to-fuchsia-500 dark:from-emerald-600 dark:via-sky-600 dark:to-fuchsia-600 shadow-md mb-6 border-b dark:border-gray-800 text-white rounded-b-lg nav-gradient"
             >
               <div className="text-xl font-semibold tracking-tight">
                 Carabiner

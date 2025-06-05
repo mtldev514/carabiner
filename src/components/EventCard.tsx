@@ -50,7 +50,7 @@ export  function EventCard({ event }: { event: Event }) {
         </div>
       )}
       <h3
-        className="text-xl font-semibold mb-1 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500 dark:from-pink-400 dark:to-purple-400"
+        className="text-xl font-semibold mb-1 text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-sky-500 to-fuchsia-500 dark:from-emerald-400 dark:via-sky-400 dark:to-fuchsia-400"
       >
         {event.title}
       </h3>
