@@ -5,7 +5,7 @@
     "contact": "Nous",
     "admin": "Admin"
   },
-  "description": "Carabiner is a community-driven platform for sharing events in the Queer community of Montreal. It's a queer & bipoc initiative. All events are subject to moderation. The goal of this platform is to offer an alternative to the Zuckerverse. It is not perfect—but it is a start.",
+  "description": "Carabiner est une plateforme communautaire pour partager des événements au sein de la communauté queer de Montréal. C’est une initiative queer et BIPOC. Tous les événements sont modérés et nous ne conservons aucune information personnelle. Pour modifier un événement, écris-nous. L’objectif de cette plateforme est d’offrir une alternative à l’univers de Zuckerberg. Ce n’est pas parfait — mais c’est un début.",
   "submit": {
     "title": "Soumettre un événement",
     "button": "Envoyer",
@@ -34,8 +34,8 @@
     "addEvent": "Ajouter un événement",
     "contact": "Contact",
     "title": "À propos de Carabiner",
-    "description": "Carabiner est un calendrier communautaire queer pour Montréal. Tu veux collaborer, suggérer une fonctionnalité ou simplement dire bonjour ? Écris-nous !",
-    "email": "📫 Écris-nous à : hello@carabiner.mtl"
+    "description": "Carabiner est un calendrier communautaire queer pour Montréal. Nous ne gardons aucune information personnelle. Pour modifier un événement, écris-nous. Tu veux collaborer, suggérer une fonctionnalité ou simplement dire bonjour ? Écris-nous !",
+    "email": "📫 Écris-nous à : hello@carabiner.gay"
   },
   "admin": {
     "title": "Approuver les événements",
