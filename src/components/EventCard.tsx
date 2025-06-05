@@ -10,6 +10,7 @@ export type Event = {
   description_en: string;
   description_fr: string;
   date: string;
+  end_date?: string | null;
   location: string;
   tags?: string[];
   event_url?: string;
@@ -64,10 +65,25 @@ export  function EventCard({ event }: { event: Event }) {
       )}
       <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{event.location}</p>
       <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
-        {new Date(event.date).toLocaleTimeString(undefined, {
+        {new Date(event.date).toLocaleString(undefined, {
           hour: "2-digit",
           minute: "2-digit",
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
         })}
+        {event.end_date && (
+          <> -
+          {" "}
+          {new Date(event.end_date).toLocaleString(undefined, {
+            hour: "2-digit",
+            minute: "2-digit",
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          })}
+          </>
+        )}
       </p>
       <p className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-line">
           {event[descriptionField] || event[otherDescriptionField]}
