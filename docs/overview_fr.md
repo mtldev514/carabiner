@@ -13,7 +13,7 @@ src/\
 │   │   ├── page.tsx        # Page d’accueil (liste d’événements)\
 │   │   ├── contact/        # Page “About/Contact”\
 │   │   └── submit/         # Formulaire de soumission d’événement\
-│   ├── api/submit/         # Route API pour vérifier reCAPTCHA\
+│   ├── api/submit/         # Route API avec honeypot et limitation de taux\
 │   └── utils/              # Fonctions utilitaires (ex. Supabase)\
 ├── components/             # Composants réutilisables\
 ├── i18n/                   # Configuration Next-intl\
@@ -31,6 +31,6 @@ src/\
 1. Installer les dépendances et variables d’environnement (section « Getting Started » du README).
 2. Explorer les composants dans `src/components/`.
 3. Consulter les fichiers de traduction `src/messages/en.json` et `fr.json`.
-4. Regarder le code de la page `submit` pour l’intégration Supabase et reCAPTCHA.
+4. Regarder le code de la page `submit` pour l’intégration Supabase ainsi que le honeypot et la limitation de taux.
 5. Modifier la navigation ou ajouter des pages dans `src/app/[locale]/`.
 

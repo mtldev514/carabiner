@@ -1,7 +1,6 @@
 "use client"; // ← seulement si tu es en App Router
 import { v4 as uuidv4 } from "uuid"; // npm install uuid
 import { useState } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
 import { supabase } from "../../utils/supabaseClient";
 import { useTranslations } from "next-intl";
 
@@ -33,7 +32,6 @@ const uploadImages = async (eventId: string, images: File[]) => {
 };
 
 export default function SubmitEventPage() {
-  const [token, setToken] = useState<string | null>(null);
   const [images, setImages] = useState<File[]>([]);
   const [imageError, setImageError] = useState<string | null>(null);
   const t = useTranslations("submit");
@@ -46,6 +44,7 @@ export default function SubmitEventPage() {
     location: "",
     ticket_url: "",
     tags: [] as string[],
+    website: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -69,7 +68,7 @@ export default function SubmitEventPage() {
     const response = await fetch("/api/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...form, token }),
+      body: JSON.stringify(form),
     });
 
     const result = await response.json();
@@ -108,7 +107,7 @@ export default function SubmitEventPage() {
         alert(error?.message);
       }
     } else {
-      alert("CAPTCHA failed.");
+      alert("Submission blocked. Please try again later.");
     }
   };
 
@@ -220,11 +219,13 @@ export default function SubmitEventPage() {
           ))}
         </div>
 
-        <ReCAPTCHA
-          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-          size="invisible"
-          ref={(ref) => ref?.execute()}
-          onChange={(value) => setToken(value)}
+        <input
+          type="text"
+          name="website"
+          className="hidden"
+          tabIndex={-1}
+          autoComplete="off"
+          onChange={handleChange}
         />
         <button
           type="submit"
