@@ -1,6 +1,6 @@
 "use client"; // ← seulement si tu es en App Router
 import { v4 as uuidv4 } from "uuid"; // npm install uuid
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "../../utils/supabaseClient";
 import { useTranslations } from "next-intl";
 import TagChip from "@/components/TagChip";
@@ -43,7 +43,9 @@ export default function SubmitEventPage() {
     description_en: "",
     date: "",
     end_date: "",
-    location: "",
+    city: "",
+    address: "",
+    address_visibility: "public" as "public" | "ticket_holder",
     event_url: "",
     tags: [] as string[],
     website: "",
@@ -51,9 +53,30 @@ export default function SubmitEventPage() {
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [addressQuery, setAddressQuery] = useState("");
+  const [addressSuggestions, setAddressSuggestions] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (form.address_visibility === "public" && addressQuery.length > 3) {
+      const controller = new AbortController();
+      fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=${encodeURIComponent(
+          addressQuery
+        )}`,
+        { signal: controller.signal, headers: { "Accept-Language": "fr" } }
+      )
+        .then((res) => res.json())
+        .then((data) => setAddressSuggestions(data))
+        .catch(() => {});
+      return () => controller.abort();
+    }
+    setAddressSuggestions([]);
+  }, [addressQuery, form.address_visibility]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -78,20 +101,24 @@ export default function SubmitEventPage() {
     setLoading(false);
     if (result.success) {
       setSuccess(true);
+      const insertData: Record<string, any> = {
+        title: form.title,
+        description_fr: form.description_fr,
+        description_en: form.description_en,
+        date: new Date(form.date),
+        end_date: form.end_date ? new Date(form.end_date) : null,
+        city: form.city,
+        address_visibility: form.address_visibility,
+        ticket_url: form.event_url,
+        tags: form.tags,
+      };
+      if (form.address_visibility === "public") {
+        insertData.address = form.address;
+      }
+
       const { data, error } = await supabase
         .from("events")
-        .insert([
-          {
-            title: form.title,
-            description_fr: form.description_fr,
-            description_en: form.description_en,
-            date: new Date(form.date),
-            end_date: form.end_date ? new Date(form.end_date) : null,
-            location: form.location,
-            ticket_url: form.event_url,
-            tags: form.tags,
-          },
-        ])
+        .insert([insertData])
         .select()
         .single();
       if (!error && data?.id) {
@@ -103,7 +130,9 @@ export default function SubmitEventPage() {
           description_en: "",
           date: "",
           end_date: "",
-          location: "",
+          city: "",
+          address: "",
+          address_visibility: "public",
           event_url: "",
           tags: [],
           website: "",
@@ -192,11 +221,56 @@ export default function SubmitEventPage() {
           onChange={handleChange}
           className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
         />
+        <select
+          name="address_visibility"
+          value={form.address_visibility}
+          onChange={handleChange}
+          className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
+        >
+          <option value="public">{t("form.addressVisibilityPublic")}</option>
+          <option value="ticket_holder">
+            {t("form.addressVisibilityTicketHolder")}
+          </option>
+        </select>
+        {form.address_visibility === "public" && (
+          <>
+            <input
+              type="text"
+              name="address"
+              list="address-suggestions"
+              placeholder={t("form.addressPlaceholder")}
+              value={form.address}
+              onChange={(e) => {
+                setForm({ ...form, address: e.target.value });
+                setAddressQuery(e.target.value);
+                const match = addressSuggestions.find(
+                  (s) => s.display_name === e.target.value
+                );
+                if (match) {
+                  const c =
+                    match.address.city ||
+                    match.address.town ||
+                    match.address.village ||
+                    match.address.hamlet ||
+                    "";
+                  setForm((prev) => ({ ...prev, city: c }));
+                }
+              }}
+              required
+              className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
+            />
+            <datalist id="address-suggestions">
+              {addressSuggestions.map((s, i) => (
+                <option key={i} value={s.display_name} />
+              ))}
+            </datalist>
+          </>
+        )}
         <input
           type="text"
-          name="location"
-          placeholder={t("form.locationPlaceholder")}
-          value={form.location}
+          name="city"
+          placeholder={t("form.cityPlaceholder")}
+          value={form.city}
           onChange={handleChange}
           required
           className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"

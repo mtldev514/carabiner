@@ -13,6 +13,11 @@
       "description_en_Placeholder": "Description en anglais",
       "locationPlaceholder": "Lieu",
       "eventUrlPlaceholder": "Lien vers l'événement (optionnel)",
+      "cityPlaceholder": "Ville",
+      "addressPlaceholder": "Adresse",
+      "addressVisibilityLabel": "Visibilité de l'adresse",
+      "addressVisibilityPublic": "L’adresse sera visible publiquement.",
+      "addressVisibilityTicketHolder": "L’adresse sera transmise uniquement aux personnes inscrites.",
       "loading": "Envoi…",
       "submitButton": "Soumettre",
       "successMessage": "🎉 Merci ! L’événement sera visible après modération. Pour toute modification, écris-nous à hello@carabiner.gay.",
@@ -33,5 +38,8 @@
     "title": "Approuver les événements",
     "noPending": "Aucun événement en attente d'approbation.",
     "approveButton": "Approuver"
+  },
+  "eventCard": {
+    "privateAddressNote": "L’adresse exacte sera transmise aux personnes inscrites."
   }
 }
