@@ -102,6 +102,7 @@ export default function SubmitEventPage() {
           location: "",
           ticket_url: "",
           tags: [],
+          website: "",
         });
       } else {
         alert(error?.message);
