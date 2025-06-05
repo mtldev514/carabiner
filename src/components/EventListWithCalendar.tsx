@@ -151,9 +151,9 @@ export default function EventListWithCalendar() {
               year: "numeric",
             }).format(new Date(date))}
           </h2>
-          <ul className="space-y-4">
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {grouped[date].map((event) => (
-              <li key={event.id}>
+              <li key={event.id} className="flex justify-center">
                 <EventCard event={event} />
               </li>
             ))}
