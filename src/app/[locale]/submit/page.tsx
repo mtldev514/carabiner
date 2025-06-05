@@ -20,7 +20,7 @@ const uploadImages = async (eventId: string, images: File[]) => {
       console.error("Upload error:", error.message);
     } else {
       console.log("File uploaded:", fileName);
-      
+
       await supabase.from("event_images").insert({
         event_id: eventId,
         file_name: fileName,
@@ -210,15 +210,14 @@ export default function SubmitEventPage() {
           onChange={handleChange}
           className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
         />
-        {locale === "es" && (
-          <textarea
-            name="description_es"
-            placeholder={t("form.description_es_Placeholder")}
-            value={form.description_es}
-            onChange={handleChange}
-            className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
-          />
-        )}
+
+        <textarea
+          name="description_es"
+          placeholder={t("form.description_es_Placeholder")}
+          value={form.description_es}
+          onChange={handleChange}
+          className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
+        />
         <input
           type="datetime-local"
           name="date"
@@ -332,7 +331,9 @@ export default function SubmitEventPage() {
           {loading ? t("form.loading") : t("form.submitButton")}
         </button>
         {success && (
-          <p className="text-green-600 dark:text-green-400 mt-2">{t("form.successMessage")}</p>
+          <p className="text-green-600 dark:text-green-400 mt-2">
+            {t("form.successMessage")}
+          </p>
         )}
       </form>
     </div>
