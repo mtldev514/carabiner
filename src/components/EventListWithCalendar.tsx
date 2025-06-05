@@ -78,6 +78,10 @@ export default function EventListWithCalendar() {
     (a, b) => new Date(a).getTime() - new Date(b).getTime()
   );
 
+  const eventsForDisplay = sortedDates.flatMap((date) =>
+    grouped[date].map((event) => ({ event, date }))
+  );
+
   return (
     <div className="p-4 max-w-2xl mx-auto">
       {selectedDate && (
@@ -149,29 +153,25 @@ export default function EventListWithCalendar() {
       </AnimatePresence>
       */}
 
-      {sortedDates.length === 0 && (
+      {eventsForDisplay.length === 0 && (
         <p className="text-center text-gray-500 dark:text-gray-400">{t("noEvents")}</p>
       )}
 
-      {sortedDates.map((date) => (
-        <div key={date} className="mb-6">
-          <h2 className="text-lg font-bold mb-2 text-pink-600 dark:text-pink-400">
-            {new Intl.DateTimeFormat(locale, {
-              weekday: "long",
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            }).format(new Date(date))}
-          </h2>
-          <ul className="space-y-4">
-            {grouped[date].map((event) => (
-              <li key={event.id}>
-                <EventCard event={event} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      <div className="flex flex-wrap gap-6 justify-center">
+        {eventsForDisplay.map(({ event, date }) => (
+          <div key={`${event.id}-${date}`} className="min-w-[280px] flex-1">
+            <p className="text-sm font-bold mb-2 text-pink-600 dark:text-pink-400 text-center">
+              {new Intl.DateTimeFormat(locale, {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              }).format(new Date(date))}
+            </p>
+            <EventCard event={event} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
