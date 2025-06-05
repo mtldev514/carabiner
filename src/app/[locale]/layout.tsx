@@ -22,7 +22,9 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col">
         <NextIntlClientProvider>
           <main className="flex-1">
-            <nav className="flex justify-between items-center p-4 bg-white dark:bg-gray-900 shadow-md mb-6 border-b dark:border-gray-800">
+            <nav
+              className="flex justify-between items-center p-4 bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 dark:from-pink-700 dark:via-purple-700 dark:to-blue-700 shadow-md mb-6 border-b dark:border-gray-800 text-white rounded-b-lg"
+            >
               <div className="text-xl font-semibold tracking-tight">
                 Carabiner
               </div>

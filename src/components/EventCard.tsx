@@ -49,7 +49,11 @@ export  function EventCard({ event }: { event: Event }) {
           <ImageCarousel imageUrls={imageUrls} />
         </div>
       )}
-      <h3 className="text-xl font-semibold mb-1 text-pink-700 dark:text-pink-300">{event.title}</h3>
+      <h3
+        className="text-xl font-semibold mb-1 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500 dark:from-pink-400 dark:to-purple-400"
+      >
+        {event.title}
+      </h3>
       <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{event.location}</p>
       <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
         {new Date(event.date).toLocaleTimeString(undefined, {
