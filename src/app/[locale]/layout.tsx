@@ -1,7 +1,6 @@
-import { NextIntlClientProvider, useTranslations } from "next-intl";
+import { NextIntlClientProvider } from "next-intl";
 import "../globals.css";
-import Link from "next/link";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
+import HamburgerMenu from "@/components/HamburgerMenu";
 import "keen-slider/keen-slider.min.css";
 
 export const metadata = {
@@ -16,33 +15,14 @@ export default function RootLayout({
   children: React.ReactNode;
   params: any;
 }) {
-  const t = useTranslations("nav");
   return (
     <html lang={params.locale}>
       <body className="min-h-screen flex flex-col">
         <NextIntlClientProvider>
           <main className="flex-1">
             <nav className="flex justify-between items-center p-4 bg-white dark:bg-gray-900 shadow-md mb-6 border-b dark:border-gray-800">
-              <div className="text-xl font-semibold tracking-tight">
-                Carabiner
-              </div>
-              <div className="flex space-x-6 text-sm font-medium">
-                <Link href="/" className="hover:text-pink-600 dark:hover:text-pink-400 transition">
-                  {t("home")}
-                </Link>
-                <Link href="/submit" className="hover:text-pink-600 dark:hover:text-pink-400 transition">
-                  {t("submit")}
-                </Link>
-                <Link
-                  href="/contact"
-                  className="hover:text-pink-600 dark:hover:text-pink-400 transition"
-                >
-                  {t("contact")}
-                </Link>
-              </div>
-              <div className="flex space-x-6 text-sm font-medium">
-                <LanguageSwitcher />
-              </div>
+              <div className="text-xl font-semibold tracking-tight">Carabiner</div>
+              <HamburgerMenu />
             </nav>
 
             {children}

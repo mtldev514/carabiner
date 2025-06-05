@@ -4,7 +4,11 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
 import { useState } from 'react'
 
-export default function LanguageSwitcher() {
+export default function LanguageSwitcher({
+  className = 'absolute top-4 right-4',
+}: {
+  className?: string
+}) {
   const [open, setOpen] = useState(false)
   const locale = useLocale()
   const router = useRouter()
@@ -20,7 +24,7 @@ export default function LanguageSwitcher() {
   }
 
   return (
-    <div className="absolute top-4 right-4 text-sm z-50">
+    <div className={`relative text-sm z-50 ${className}`}>
       <button
         onClick={() => setOpen(!open)}
         className="bg-white dark:bg-gray-800 border dark:border-gray-600 rounded-full px-3 py-1 shadow-sm hover:bg-gray-100 dark:hover:bg-gray-700"
