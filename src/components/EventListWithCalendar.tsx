@@ -155,7 +155,7 @@ export default function EventListWithCalendar() {
 
       <div className="flex flex-wrap gap-6">
         {sortedDates.map((date) => (
-          <div key={date} className="flex flex-col w-[280px] flex-none mb-6">
+          <div key={date} className="flex flex-col flex-none mb-6 w-max">
             <h2 className="text-lg font-bold mb-2 text-pink-600 dark:text-pink-400">
               {new Intl.DateTimeFormat(locale, {
                 weekday: "long",
