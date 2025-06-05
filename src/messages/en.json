@@ -2,10 +2,8 @@
   "nav": {
     "home": "Home",
     "submit": "Submit",
-     "contact": "About Us",
     "admin": "Admin"
   },
-  "description": "Carabiner is a community calendar for Montreal's queer community. It's a queer & bipoc initiative. Every event is moderated and no personal data is kept. Need to update an event, suggest a feature, or just say hi? Drop us a line! It's our alternative to the Zuckerverse—it isn't perfect, but it's a start.",
   "submit": {
     "title": "Submit an Event",
     "button": "Send",
@@ -25,17 +23,10 @@
   "eventList": {
     "viewAllEvents": "View all events",
     "showCalendar": "Show calendar",
+    "description": "Carabiner is a community calendar for Montreal's queer community. It's a queer & bipoc initiative. Every event is moderated and no personal data is kept. Need to update an event, suggest a feature, or just say hi? Drop us a line at hello@carabiner.gay! It's our alternative to the Zuckerverse—it isn't perfect, but it's a start.",
     "hideCalendar": "Hide calendar",
     "noEvents": "No events on this date.",
     "filterByTag": "Filter by tag"
-  },
-  "contact": {
-    "home": "Home",
-    "addEvent": "Add Event",
-    "contact": "Contact",
-    "title": "About Carabiner",
-    "description": "Carabiner is a community calendar for Montreal's queer community. It's a queer & bipoc initiative. Every event is moderated and no personal data is kept. Need to update an event, suggest a feature, or just say hi? Drop us a line! It's our alternative to the Zuckerverse—it isn't perfect, but it's a start.",
-    "email": "📫 Write to us at: hello@carabiner.gay"
   },
   "admin": {
     "title": "Approve Events",

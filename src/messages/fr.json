@@ -2,10 +2,8 @@
   "nav": {
     "home": "Accueil",
     "submit": "Soumettre",
-    "contact": "À propos",
     "admin": "Admin"
   },
-  "description": "Carabiner est un calendrier communautaire pour la communauté queer de Montréal. C'est une initiative queer et BIPOC. Tous les événements sont modérés et aucune donnée personnelle n'est conservée. Besoin de modifier un événement, de proposer une fonctionnalité ou simplement de dire bonjour ? Écris-nous ! C'est notre alternative au Zuckerverse : ce n'est pas parfait, mais c'est un début.",
   "submit": {
     "title": "Soumettre un événement",
     "button": "Envoyer",
@@ -24,18 +22,12 @@
   },
   "eventList": {
     "viewAllEvents": "Voir tous les événements",
+    "description": "Carabiner est un calendrier communautaire pour la communauté queer de Montréal. C'est une initiative queer et BIPOC. Tous les événements sont modérés et aucune donnée personnelle n'est conservée. Besoin de modifier un événement, de proposer une fonctionnalité ou simplement de dire bonjour ? Écris-nous à hello@carabiner.gay! C'est notre alternative au Zuckerverse : ce n'est pas parfait, mais c'est un début.",
+   
     "showCalendar": "Afficher le calendrier",
     "hideCalendar": "Masquer le calendrier",
     "noEvents": "Aucun événement à cette date.",
     "filterByTag": "Filtrer par tag"
-  },
-  "contact": {
-    "home": "Accueil",
-    "addEvent": "Ajouter un événement",
-    "contact": "Contact",
-    "title": "À propos de Carabiner",
-    "description": "Carabiner est un calendrier communautaire pour la communauté queer de Montréal. C'est une initiative queer et BIPOC. Tous les événements sont modérés et aucune donnée personnelle n'est conservée. Besoin de modifier un événement, de proposer une fonctionnalité ou simplement de dire bonjour ? Écris-nous ! C'est notre alternative au Zuckerverse : ce n'est pas parfait, mais c'est un début.",
-    "email": "📫 Écris-nous à : hello@carabiner.gay"
   },
   "admin": {
     "title": "Approuver les événements",

@@ -11,7 +11,6 @@ src/\
 │   ├── \[locale]/           # Routes selon la langue (fr ou en)\
 │   │   ├── layout.tsx      # Layout global + barre de navigation\
 │   │   ├── page.tsx        # Page d’accueil (liste d’événements)\
-│   │   ├── contact/        # Page “About/Contact”\
 │   │   └── submit/         # Formulaire de soumission d’événement\
 │   ├── api/submit/         # Route API avec honeypot et limitation de taux\
 │   └── utils/              # Fonctions utilitaires (ex. Supabase)\
