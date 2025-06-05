@@ -1,6 +1,6 @@
 "use client";
 
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState, Fragment } from "react";
 import Calendar from "react-calendar";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
@@ -141,25 +141,25 @@ export default function EventListWithCalendar() {
         <p className="text-center text-gray-500 dark:text-gray-400">{t("noEvents")}</p>
       )}
 
-      {sortedDates.map((date) => (
-        <div key={date} className="mb-6">
-          <h2 className="text-lg font-bold mb-2 text-pink-600 dark:text-pink-400">
-            {new Intl.DateTimeFormat(locale, {
-              weekday: "long",
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            }).format(new Date(date))}
-          </h2>
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {sortedDates.map((date) => (
+          <Fragment key={date}>
+            <h2 className="col-span-full text-lg font-bold mt-4 mb-2 text-pink-600 dark:text-pink-400">
+              {new Intl.DateTimeFormat(locale, {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              }).format(new Date(date))}
+            </h2>
             {grouped[date].map((event) => (
-              <li key={event.id} className="flex justify-center">
+              <div key={event.id} className="flex justify-center">
                 <EventCard event={event} />
-              </li>
+              </div>
             ))}
-          </ul>
-        </div>
-      ))}
+          </Fragment>
+        ))}
+      </div>
     </div>
   );
 }
