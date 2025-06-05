@@ -3,7 +3,6 @@
 import { usePathname, useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
 
-
 export default function LanguageSwitcher({
   className = '',
   onSwitch,
@@ -15,21 +14,27 @@ export default function LanguageSwitcher({
   const router = useRouter()
   const pathname = usePathname()
 
-  const otherLocale = locale === 'fr' ? 'en' : 'fr'
-  // const flag = otherLocale === 'fr' ? '🏳️‍⚜️' : '🇨🇦'
+  const locales = ['fr', 'en', 'es'] as const
+  const otherLocales = locales.filter((l) => l !== locale)
 
-  const switchTo = () => {
-    const newPath = pathname.replace(/^\/(fr|en)/, `/${otherLocale}`)
+  const switchTo = (target: string) => {
+    const regex = new RegExp(`^/(${locales.join('|')})`)
+    const newPath = pathname.replace(regex, `/${target}`)
     router.replace(newPath)
     onSwitch?.()
   }
 
   return (
-    <button
-      onClick={switchTo}
-      className={`block hover:text-pink-600 dark:hover:text-pink-400 ${className}`}
-    >
-       {otherLocale.toUpperCase()}
-    </button>
+    <div className={`flex gap-2 ${className}`}>
+      {otherLocales.map((loc) => (
+        <button
+          key={loc}
+          onClick={() => switchTo(loc)}
+          className="hover:text-pink-600 dark:hover:text-pink-400"
+        >
+          {loc.toUpperCase()}
+        </button>
+      ))}
+    </div>
   )
 }

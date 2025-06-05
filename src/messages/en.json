@@ -11,6 +11,7 @@
       "titlePlaceholder": "Title",
       "description_fr_Placeholder": "Description en Français",
       "description_en_Placeholder": "Description en Anglais",
+      "description_es_Placeholder": "Description in Spanish",
       "locationPlaceholder": "Location",
       "eventUrlPlaceholder": "Event URL (optional)",
       "cityPlaceholder": "City",

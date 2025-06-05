@@ -11,6 +11,7 @@ interface PendingEvent {
   title: string
   description_fr?: string
   description_en?: string
+  description_es?: string
   description?: string
   date: string
   end_date?: string | null
@@ -68,6 +69,7 @@ export default function AdminPage() {
               title: event.title,
               description_en: event.description_en|| "",
               description_fr: event.description_fr  || "",
+              description_es: event.description_es || "",
               date: event.date,
               end_date: event.end_date,
               city: event.city,
