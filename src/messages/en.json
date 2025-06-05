@@ -18,7 +18,7 @@
       "loading": "Sending…",
       "submitButton": "Submit",
       "successMessage": "🎉 Thank you! The event will be visible after moderation.",
-      "captchaFailed": "CAPTCHA verification failed.",
+      "submissionBlocked": "Submission blocked. Please try again later.",
       "tagsLabel": "Tags"
     }
   },

@@ -18,7 +18,7 @@
       "loading": "Envoi…",
       "submitButton": "Soumettre",
       "successMessage": "🎉 Merci ! L’événement sera visible après modération.",
-      "captchaFailed": "La vérification CAPTCHA a échoué.",
+      "submissionBlocked": "La soumission a été bloquée. Réessaie plus tard.",
       "tagsLabel": "Tags"
     }
   },

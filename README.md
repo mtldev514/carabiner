@@ -13,7 +13,7 @@
 ## 🛠 Tech Stack
 
 - **Frontend**: Next.js (React + TypeScript), Tailwind CSS, Framer Motion for animations  
-- **Backend**: Supabase (database + image storage), with invisible reCAPTCHA to prevent spam  
+- **Backend**: Supabase (database + image storage) with honeypot fields and rate limiting to prevent spam
 - **Hosting**: Ideal for Vercel, but can run anywhere that supports Node.js  
 
 ## 🚀 Getting Started (Local Setup)
@@ -29,13 +29,11 @@
    npm install
    ```
 
-3. **Set Up Environment Variables**  
+3. **Set Up Environment Variables**
    Create a `.env.local` file with:
    ```env
    NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
-   NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your-recaptcha-site-key
-   RECAPTCHA_SECRET_KEY=your-recaptcha-secret-key
    ```
 
 4. **Start the Dev Server**  
