@@ -54,6 +54,7 @@ export default function SubmitEventPage() {
   const [success, setSuccess] = useState(false);
   const [addressQuery, setAddressQuery] = useState("");
   const [addressSuggestions, setAddressSuggestions] = useState<any[]>([]);
+  const [activeTab, setActiveTab] = useState<"fr" | "en" | "es">("fr");
 
   useEffect(() => {
     if (form.address_visibility === "public" && addressQuery.length > 3) {
@@ -151,7 +152,11 @@ export default function SubmitEventPage() {
       <h1 className="text-2xl font-bold mb-4">{t("title")}</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
+        <label htmlFor="title" className="block text-sm font-medium">
+          {t("form.titlePlaceholder")}
+        </label>
         <input
+          id="title"
           type="text"
           name="title"
           placeholder={t("form.titlePlaceholder")}
@@ -160,7 +165,11 @@ export default function SubmitEventPage() {
           required
           className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
         />
+        <label htmlFor="images" className="block text-sm font-medium">
+          {t("form.imageInputLabel")}
+        </label>
         <input
+          id="images"
           type="file"
           accept="image/*"
           multiple
@@ -195,29 +204,80 @@ export default function SubmitEventPage() {
             ))}
           </div>
         )}
-        <textarea
-          name="description_fr"
-          placeholder={t("form.description_fr_Placeholder")}
-          value={form.description_fr}
-          onChange={handleChange}
-          className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
-        />
-        <textarea
-          name="description_en"
-          placeholder={t("form.description_en_Placeholder")}
-          value={form.description_en}
-          onChange={handleChange}
-          className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
-        />
 
-        <textarea
-          name="description_es"
-          placeholder={t("form.description_es_Placeholder")}
-          value={form.description_es}
-          onChange={handleChange}
-          className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
-        />
+        <div>
+          <div className="flex gap-2 mb-2">
+            {[
+              { key: "fr", label: "FR" },
+              { key: "en", label: "EN" },
+              { key: "es", label: "ES" },
+            ].map(({ key, label }) => (
+              <button
+                key={key}
+                type="button"
+                onClick={() => setActiveTab(key as "fr" | "en" | "es")}
+                className={`px-2 py-1 border rounded ${
+                  activeTab === key
+                    ? "bg-gray-200 dark:bg-gray-700"
+                    : "bg-transparent"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
+          {activeTab === "fr" && (
+            <>
+              <label htmlFor="description_fr" className="block text-sm font-medium">
+                {t("form.description_fr_Placeholder")}
+              </label>
+              <textarea
+                id="description_fr"
+                name="description_fr"
+                placeholder={t("form.description_fr_Placeholder")}
+                value={form.description_fr}
+                onChange={handleChange}
+                className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
+              />
+            </>
+          )}
+          {activeTab === "en" && (
+            <>
+              <label htmlFor="description_en" className="block text-sm font-medium">
+                {t("form.description_en_Placeholder")}
+              </label>
+              <textarea
+                id="description_en"
+                name="description_en"
+                placeholder={t("form.description_en_Placeholder")}
+                value={form.description_en}
+                onChange={handleChange}
+                className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
+              />
+            </>
+          )}
+          {activeTab === "es" && (
+            <>
+              <label htmlFor="description_es" className="block text-sm font-medium">
+                {t("form.description_es_Placeholder")}
+              </label>
+              <textarea
+                id="description_es"
+                name="description_es"
+                placeholder={t("form.description_es_Placeholder")}
+                value={form.description_es}
+                onChange={handleChange}
+                className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
+              />
+            </>
+          )}
+        </div>
+        <label htmlFor="date" className="block text-sm font-medium">
+          {t("form.startDateLabel")}
+        </label>
         <input
+          id="date"
           type="datetime-local"
           name="date"
           value={form.date}
@@ -227,7 +287,11 @@ export default function SubmitEventPage() {
           required
           className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
         />
+        <label htmlFor="end_date" className="block text-sm font-medium">
+          {t("form.endDateLabel")}
+        </label>
         <input
+          id="end_date"
           type="datetime-local"
           name="end_date"
           value={form.end_date}
@@ -236,7 +300,11 @@ export default function SubmitEventPage() {
           aria-label={t("form.endDateLabel")}
           className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
         />
+        <label htmlFor="address_visibility" className="block text-sm font-medium">
+          {t("form.addressVisibilityLabel")}
+        </label>
         <select
+          id="address_visibility"
           name="address_visibility"
           value={form.address_visibility}
           onChange={handleChange}
@@ -249,7 +317,11 @@ export default function SubmitEventPage() {
         </select>
         {form.address_visibility === "public" && (
           <>
+            <label htmlFor="address" className="block text-sm font-medium">
+              {t("form.addressPlaceholder")}
+            </label>
             <input
+              id="address"
               type="text"
               name="address"
               list="address-suggestions"
@@ -281,7 +353,11 @@ export default function SubmitEventPage() {
             </datalist>
           </>
         )}
+        <label htmlFor="city" className="block text-sm font-medium">
+          {t("form.cityPlaceholder")}
+        </label>
         <input
+          id="city"
           type="text"
           name="city"
           placeholder={t("form.cityPlaceholder")}
@@ -290,7 +366,11 @@ export default function SubmitEventPage() {
           required
           className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
         />
+        <label htmlFor="event_url" className="block text-sm font-medium">
+          {t("form.eventUrlPlaceholder")}
+        </label>
         <input
+          id="event_url"
           type="url"
           name="event_url"
           placeholder={t("form.eventUrlPlaceholder")}
