@@ -15,7 +15,7 @@ export default async function RootLayout({
   const { locale } = await params
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className="dark">
       <body className="min-h-screen flex flex-col">
         <NextIntlClientProvider >
           <main className="flex-1">
