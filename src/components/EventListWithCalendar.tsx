@@ -79,7 +79,7 @@ export default function EventListWithCalendar() {
   );
 
   return (
-    <div className="p-4 max-w-2xl mx-auto">
+    <div className="p-4 mx-auto">
       {selectedDate && (
         <button
           className="text-sm text-blue-600 dark:text-blue-400 underline mb-4"
@@ -153,25 +153,27 @@ export default function EventListWithCalendar() {
         <p className="text-center text-gray-500 dark:text-gray-400">{t("noEvents")}</p>
       )}
 
-      {sortedDates.map((date) => (
-        <div key={date} className="mb-6">
-          <h2 className="text-lg font-bold mb-2 text-pink-600 dark:text-pink-400">
-            {new Intl.DateTimeFormat(locale, {
-              weekday: "long",
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            }).format(new Date(date))}
-          </h2>
-          <ul className="space-y-4">
-            {grouped[date].map((event) => (
-              <li key={event.id}>
-                <EventCard event={event} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      <div className="flex flex-wrap gap-6">
+        {sortedDates.map((date) => (
+          <div key={date} className="flex flex-col flex-1 min-w-[300px] mb-6">
+            <h2 className="text-lg font-bold mb-2 text-pink-600 dark:text-pink-400">
+              {new Intl.DateTimeFormat(locale, {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              }).format(new Date(date))}
+            </h2>
+            <ul className="flex flex-wrap gap-4">
+              {grouped[date].map((event) => (
+                <li key={event.id} className="w-[250px] flex-none">
+                  <EventCard event={event} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
