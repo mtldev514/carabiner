@@ -1,5 +1,13 @@
 import fetch, { Headers, Request as CFRequest, Response as CFResponse } from 'cross-fetch';
 
+jest.mock('@upstash/ratelimit', () => ({
+  Ratelimit: class {
+    constructor() {}
+    limit() { return Promise.resolve({ success: true }) }
+  }
+}))
+jest.mock('@upstash/redis', () => ({ Redis: class {} }))
+
 class PolyfillResponse extends CFResponse {
   static json(data: any, init: any = {}) {
     const headers = new Headers(init.headers || {});
@@ -18,6 +26,8 @@ beforeAll(() => {
   (global as any).Headers ??= Headers;
   (global as any).Request ??= CFRequest;
   (global as any).Response ??= PolyfillResponse;
+  process.env.NEXT_PUBLIC_SUPABASE_URL = 'http://localhost';
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'anon';
   POST = require('../route').POST;
 });
 

@@ -3,6 +3,11 @@ import ImageCarousel from "./ImageCarousel";
 import { supabase } from "@/app/utils/supabaseClient";
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
+import {
+  descriptionFieldFor,
+  fallbackDescriptionFieldFor,
+  formatDate,
+} from "@/app/utils/date";
 
 export type Event = {
   id: string;
@@ -26,14 +31,8 @@ export type Event = {
 export  function EventCard({ event }: { event: Event }) {
   const locale = useLocale();
   const t = useTranslations();
-  const descriptionField =
-    locale === "fr"
-      ? "description_fr"
-      : locale === "es"
-      ? "description_es"
-      : "description_en";
-  const otherDescriptionField =
-    locale === "fr" ? "description_en" : "description_fr";
+  const descriptionField = descriptionFieldFor(locale)
+  const otherDescriptionField = fallbackDescriptionFieldFor(locale)
   const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   useEffect(() => {
@@ -83,25 +82,8 @@ export  function EventCard({ event }: { event: Event }) {
         </p>
       )}
       <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
-        {new Date(event.date).toLocaleString(undefined, {
-          hour: "2-digit",
-          minute: "2-digit",
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-        })}
-        {event.end_date && (
-          <> -
-          {" "}
-          {new Date(event.end_date).toLocaleString(undefined, {
-            hour: "2-digit",
-            minute: "2-digit",
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-          })}
-          </>
-        )}
+        {formatDate(event.date, locale)}
+        {event.end_date && <> - {formatDate(event.end_date, locale)}</>}
       </p>
       <p className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-line">
           {event[descriptionField] || event[otherDescriptionField]}

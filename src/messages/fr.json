@@ -26,6 +26,8 @@
       "tagsLabel": "Tags",
       "imageLimitError": "Vous pouvez ajouter jusqu’à 15 images maximum.",
       "imageRequiredError": "Au moins une image est requise.",
+      "imageSizeError": "Chaque image doit être inférieure à 5 Mo.",
+      "invalidDateError": "Format de date invalide. Utilisez une chaîne ISO.",
       "imageInputLabel": "Images de l'événement (jusqu'à 15)",
       "startDateLabel": "Date et heure de début",
       "endDateLabel": "Date et heure de fin"
