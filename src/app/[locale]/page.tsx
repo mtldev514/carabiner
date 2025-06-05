@@ -1,10 +1,9 @@
-import EventListWithCalendar from "@/components/EventListWithCalendar";
-import Image from "next/image";
+import EventGrid from "@/components/EventGrid";
 
 export default function Home() {
   return (
      <div className="pt-4 pb-20">
-      <EventListWithCalendar />
+      <EventGrid />
     </div>
   )
 }
