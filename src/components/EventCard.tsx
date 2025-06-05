@@ -12,6 +12,7 @@ export type Event = {
   date: string;
   location: string;
   tags?: string[];
+  ticket_url?: string;
 };
 
 
@@ -60,6 +61,18 @@ export  function EventCard({ event }: { event: Event }) {
       <p className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-line">
           {event[descriptionField] || event[otherDescriptionField]}
       </p>
+      {event.ticket_url && (
+        <p className="mt-2">
+          <a
+            href={event.ticket_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-blue-600 dark:text-blue-400 underline"
+          >
+            🔗
+          </a>
+        </p>
+      )}
       {event.tags && event.tags.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-2">
           {event.tags.map((tag) => (
