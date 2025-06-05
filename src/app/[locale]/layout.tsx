@@ -1,6 +1,7 @@
 import { NextIntlClientProvider } from "next-intl";
 import "../globals.css";
 import HamburgerMenu from "@/components/HamburgerMenu";
+import Footer from "@/components/Footer";
 import "keen-slider/keen-slider.min.css";
 
 export const metadata = {
@@ -27,6 +28,7 @@ export default function RootLayout({
 
             {children}
           </main>
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>
