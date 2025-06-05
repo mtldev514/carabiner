@@ -19,6 +19,7 @@ export default function EventListWithCalendar() {
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const today = startOfDay(new Date());
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -64,7 +65,10 @@ export default function EventListWithCalendar() {
     }, {});
 
   const allGrouped = groupByDay(filteredEvents);
-  let grouped = allGrouped;
+  const upcomingGrouped = Object.fromEntries(
+    Object.entries(allGrouped).filter(([date]) => new Date(date) >= today)
+  );
+  let grouped = upcomingGrouped;
   if (selectedDate) {
     const key = format(selectedDate, "yyyy-MM-dd");
     grouped = { [key]: allGrouped[key] ?? [] };
