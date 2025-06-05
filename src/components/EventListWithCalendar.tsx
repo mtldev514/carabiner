@@ -163,13 +163,11 @@ export default function EventListWithCalendar() {
               year: "numeric",
             }).format(new Date(date))}
           </h2>
-          <ul className="space-y-4">
+          <div className="day-grid">
             {grouped[date].map((event) => (
-              <li key={event.id}>
-                <EventCard event={event} />
-              </li>
+              <EventCard key={event.id} event={event} />
             ))}
-          </ul>
+          </div>
         </div>
       ))}
     </div>
