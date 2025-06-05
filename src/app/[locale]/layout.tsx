@@ -33,6 +33,9 @@ export default function RootLayout({
                 <Link href="/submit" className="hover:text-pink-600 transition">
                   {t("submit")}
                 </Link>
+                <Link href="/admin" className="hover:text-pink-600 transition">
+                  {t("admin")}
+                </Link>
                 <Link
                   href="/contact"
                   className="hover:text-pink-600 transition"
