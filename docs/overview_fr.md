@@ -1,7 +1,7 @@
 # Aperçu général
 
 Ce dépôt contient la première version d’une application Next.js nommée **Carabiner**.
-Le README décrit la philosophie et les principales fonctionnalités : calendrier communautaire bilingue (français/anglais), soumission d’événements avec modération, interface mobile et desktop, etc.
+Le README décrit la philosophie et les principales fonctionnalités : calendrier communautaire multilingue (français, anglais et espagnol), soumission d’événements avec modération, interface mobile et desktop, etc.
 
 ## Structure des dossiers
 

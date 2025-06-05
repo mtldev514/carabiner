@@ -1,0 +1,45 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "submit": "Enviar",
+    "admin": "Admin"
+  },
+  "submit": {
+    "title": "Enviar un evento",
+    "button": "Enviar",
+    "form": {
+      "titlePlaceholder": "Título",
+      "description_fr_Placeholder": "Descripción en francés",
+      "description_en_Placeholder": "Descripción en inglés",
+      "description_es_Placeholder": "Descripción en español",
+      "locationPlaceholder": "Lugar",
+      "eventUrlPlaceholder": "URL del evento (opcional)",
+      "cityPlaceholder": "Ciudad",
+      "addressPlaceholder": "Dirección",
+      "addressVisibilityLabel": "Visibilidad de la dirección",
+      "addressVisibilityPublic": "La dirección será visible públicamente.",
+      "addressVisibilityTicketHolder": "La dirección se compartirá solo con asistentes registrados.",
+      "loading": "Enviando…",
+      "submitButton": "Enviar",
+      "successMessage": "🎉 ¡Gracias! El evento será visible después de la moderación. Para editarlo más tarde, escríbenos a hello@carabiner.gay.",
+      "submissionBlocked": "Envío bloqueado. Intenta más tarde.",
+      "tagsLabel": "Etiquetas"
+    }
+  },
+  "eventList": {
+    "viewAllEvents": "Ver todos los eventos",
+    "showCalendar": "Mostrar calendario",
+    "description": "Carabiner es un calendario comunitario queer, creado por personas BIPOC en MTL. Los eventos son moderados. No se guardan datos personales. Para editar o preguntar algo → hello@carabiner.gay",
+    "hideCalendar": "Ocultar calendario",
+    "noEvents": "No hay eventos en esta fecha.",
+    "filterByTag": "Filtrar por etiqueta"
+  },
+  "admin": {
+    "title": "Aprobar eventos",
+    "noPending": "No hay eventos pendientes por aprobar.",
+    "approveButton": "Aprobar"
+  },
+  "eventCard": {
+    "privateAddressNote": "La dirección exacta se enviará a las personas registradas."
+  }
+}

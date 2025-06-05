@@ -2,7 +2,7 @@
 import { v4 as uuidv4 } from "uuid"; // npm install uuid
 import { useState, useEffect } from "react";
 import { supabase } from "../../utils/supabaseClient";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import TagChip from "@/components/TagChip";
 
 const uploadImages = async (eventId: string, images: File[]) => {
@@ -36,11 +36,13 @@ export default function SubmitEventPage() {
   const [images, setImages] = useState<File[]>([]);
   const [imageError, setImageError] = useState<string | null>(null);
   const t = useTranslations("submit");
+  const locale = useLocale();
 
   const [form, setForm] = useState({
     title: "",
     description_fr: "",
     description_en: "",
+    description_es: "",
     date: "",
     end_date: "",
     city: "",
@@ -105,6 +107,7 @@ export default function SubmitEventPage() {
         title: form.title,
         description_fr: form.description_fr,
         description_en: form.description_en,
+        description_es: form.description_es,
         date: new Date(form.date),
         end_date: form.end_date ? new Date(form.end_date) : null,
         city: form.city,
@@ -128,6 +131,7 @@ export default function SubmitEventPage() {
           title: "",
           description_fr: "",
           description_en: "",
+          description_es: "",
           date: "",
           end_date: "",
           city: "",
@@ -206,6 +210,15 @@ export default function SubmitEventPage() {
           onChange={handleChange}
           className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
         />
+        {locale === "es" && (
+          <textarea
+            name="description_es"
+            placeholder={t("form.description_es_Placeholder")}
+            value={form.description_es}
+            onChange={handleChange}
+            className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
+          />
+        )}
         <input
           type="datetime-local"
           name="date"

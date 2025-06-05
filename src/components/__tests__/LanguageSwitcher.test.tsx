@@ -21,7 +21,7 @@ describe('LanguageSwitcher', () => {
 
     render(<LanguageSwitcher />)
 
-    fireEvent.click(screen.getByRole('button'))
+    fireEvent.click(screen.getByRole('button', { name: 'FR' }))
 
     expect(replace).toHaveBeenCalledWith('/fr/about')
   })
