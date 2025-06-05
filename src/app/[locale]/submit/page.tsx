@@ -165,6 +165,8 @@ export default function SubmitEventPage() {
           accept="image/*"
           multiple
           required
+          lang={locale}
+          aria-label={t("form.imageInputLabel")}
           onChange={(e) => {
             const files = Array.from(e.target.files || []);
             if (files.length > 15) {
@@ -220,6 +222,8 @@ export default function SubmitEventPage() {
           name="date"
           value={form.date}
           onChange={handleChange}
+          lang={locale}
+          aria-label={t("form.startDateLabel")}
           required
           className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
         />
@@ -228,6 +232,8 @@ export default function SubmitEventPage() {
           name="end_date"
           value={form.end_date}
           onChange={handleChange}
+          lang={locale}
+          aria-label={t("form.endDateLabel")}
           className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
         />
         <select

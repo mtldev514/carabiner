@@ -25,7 +25,10 @@
       "submissionBlocked": "Submission blocked. Please try again later.",
       "tagsLabel": "Tags",
       "imageLimitError": "You can add up to 15 images maximum.",
-      "imageRequiredError": "At least one image is required."
+      "imageRequiredError": "At least one image is required.",
+      "imageInputLabel": "Event images (up to 15)",
+      "startDateLabel": "Start date and time",
+      "endDateLabel": "End date and time"
     }
   },
   "eventList": {
