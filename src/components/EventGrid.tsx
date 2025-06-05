@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '@/app/utils/supabaseClient'
 import { Event } from './EventCard'
 import DiapoEventCard from './DiapoEventCard'
+import { startOfDay } from 'date-fns'
 
 export default function EventGrid() {
   const [events, setEvents] = useState<Event[]>([])
@@ -17,7 +18,14 @@ export default function EventGrid() {
         .order('date', { ascending: true })
 
       if (data) {
-        setEvents(data as Event[])
+        const today = startOfDay(new Date())
+        const mapped = (data as Event[]).map((e) => ({
+          ...e,
+          event_url: (e as any).ticket_url,
+        }))
+        setEvents(
+          mapped.filter((e) => new Date(e.end_date ?? e.date) >= today)
+        )
       }
     }
     fetchEvents()
