@@ -43,27 +43,7 @@ export default function ImageCarousel({ imageUrls }: Props) {
         ))}
       </div>
 
-      {/* Left arrow */}
-      <button
-        onClick={handlePrev}
-        disabled={isSingleImage}
-        className={`absolute left-2 top-1/2 transform -translate-y-1/2 bg-white dark:bg-gray-800 bg-opacity-70 p-2 rounded-full shadow ${
-          isSingleImage ? 'opacity-50 cursor-not-allowed' : ''
-        }`}
-      >
-        ←
-      </button>
-
-      {/* Right arrow */}
-      <button
-        onClick={handleNext}
-        disabled={isSingleImage}
-        className={`absolute right-2 top-1/2 transform -translate-y-1/2 bg-white dark:bg-gray-800 bg-opacity-70 p-2 rounded-full shadow ${
-          isSingleImage ? 'opacity-50 cursor-not-allowed' : ''
-        }`}
-      >
-        →
-      </button>
+      {/* Arrows hidden as navigation relies on swiping or pagination dots */}
 
       {/* Pagination points */}
       <div className="flex justify-center mt-2 space-x-1">
