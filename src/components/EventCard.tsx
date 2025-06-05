@@ -18,7 +18,7 @@ export type Event = {
 
 
 
-export  function EventCard({ event }: { event: Event }) {
+    <div className="w-full max-w-[400px] rounded-lg shadow-md border-[0.5px] border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
   const locale = useLocale();
   const descriptionField = locale === "fr" ? "description_fr" : "description_en";
   const otherDescriptionField = locale === "fr" ? "description_en" : "description_fr";

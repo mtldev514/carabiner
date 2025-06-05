@@ -41,7 +41,7 @@ export default function EventListWithCalendar() {
   let filteredEvents = events;
   if (selectedDate) {
     filteredEvents = filteredEvents.filter(
-      (event) =>
+    <div className="p-4 max-w-7xl mx-auto">
         format(new Date(event.date), "yyyy-MM-dd") ===
         format(selectedDate, "yyyy-MM-dd")
     );
@@ -125,8 +125,8 @@ export default function EventListWithCalendar() {
             <Calendar
               locale={locale}
               onClickDay={(value) => setSelectedDate(value)}
-              className="rounded-md shadow"
-              formatShortWeekday={(locale, date) =>
+          <ul className="flex flex-wrap gap-4 justify-center">
+              <li key={event.id} className="w-full sm:w-auto px-2">
                 new Intl.DateTimeFormat(locale, { weekday: "short" }).format(
                   date
                 )
