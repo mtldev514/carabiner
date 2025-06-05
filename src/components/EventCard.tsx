@@ -11,6 +11,7 @@ export type Event = {
   description_fr: string;
   date: string;
   location: string;
+  tags?: string[];
 };
 
 
@@ -59,6 +60,18 @@ export  function EventCard({ event }: { event: Event }) {
       <p className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-line">
           {event[descriptionField] || event[otherDescriptionField]}
       </p>
+      {event.tags && event.tags.length > 0 && (
+        <div className="mt-2 flex flex-wrap gap-2">
+          {event.tags.map((tag) => (
+            <span
+              key={tag}
+              className="text-xs px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded"
+            >
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

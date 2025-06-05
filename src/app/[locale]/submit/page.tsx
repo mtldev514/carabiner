@@ -45,6 +45,7 @@ export default function SubmitEventPage() {
     date: "",
     location: "",
     ticket_url: "",
+    tags: [] as string[],
   });
 
   const [loading, setLoading] = useState(false);
@@ -86,6 +87,7 @@ export default function SubmitEventPage() {
             date: new Date(form.date),
             location: form.location,
             ticket_url: form.ticket_url,
+            tags: form.tags,
           },
         ])
         .select()
@@ -100,6 +102,7 @@ export default function SubmitEventPage() {
           date: "",
           location: "",
           ticket_url: "",
+          tags: [],
         });
       } else {
         alert(error?.message);
@@ -195,6 +198,27 @@ export default function SubmitEventPage() {
           onChange={handleChange}
           className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
         />
+
+        <div className="flex space-x-4 text-sm">
+          <span>{t("form.tagsLabel")}: </span>
+          {["artsy", "chill", "party"].map((tag) => (
+            <label key={tag} className="flex items-center space-x-1">
+              <input
+                type="checkbox"
+                checked={form.tags.includes(tag)}
+                onChange={() =>
+                  setForm((prev) => ({
+                    ...prev,
+                    tags: prev.tags.includes(tag)
+                      ? prev.tags.filter((t) => t !== tag)
+                      : [...prev.tags, tag],
+                  }))
+                }
+              />
+              <span>#{tag}</span>
+            </label>
+          ))}
+        </div>
 
         <ReCAPTCHA
           sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}

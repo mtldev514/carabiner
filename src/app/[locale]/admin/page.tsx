@@ -13,6 +13,7 @@ interface PendingEvent {
   description?: string
   date: string
   location: string
+  tags?: string[]
 }
 
 export default function AdminPage() {
@@ -53,6 +54,7 @@ export default function AdminPage() {
               description_fr: event.description_fr  || "",
               date: event.date,
               location: event.location,
+              tags: event.tags,
             }}
           />
           <button

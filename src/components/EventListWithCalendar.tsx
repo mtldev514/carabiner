@@ -18,6 +18,7 @@ export default function EventListWithCalendar() {
   const [showCalendar, setShowCalendar] = useState(false);
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -36,13 +37,19 @@ export default function EventListWithCalendar() {
     fetchEvents();
   }, []);
 
-  const filteredEvents = selectedDate
-    ? events.filter(
-        (event) =>
-          format(new Date(event.date), "yyyy-MM-dd") ===
-          format(selectedDate, "yyyy-MM-dd")
-      )
-    : events;
+  let filteredEvents = events;
+  if (selectedDate) {
+    filteredEvents = filteredEvents.filter(
+      (event) =>
+        format(new Date(event.date), "yyyy-MM-dd") ===
+        format(selectedDate, "yyyy-MM-dd")
+    );
+  }
+  if (selectedTags.length > 0) {
+    filteredEvents = filteredEvents.filter((event) =>
+      event.tags?.some((tag) => selectedTags.includes(tag))
+    );
+  }
 
   const grouped = filteredEvents.reduce<Record<string, Event[]>>(
     (acc, event) => {
@@ -75,6 +82,31 @@ export default function EventListWithCalendar() {
       >
         {showCalendar ? t("hideCalendar") : t("showCalendar")}
       </button>
+
+      <div className="mb-4 text-sm">
+        <span className="mr-2">{t("filterByTag")}:</span>
+        {[
+          "artsy",
+          "chill",
+          "party",
+        ].map((tag) => (
+          <label key={tag} className="mr-3">
+            <input
+              type="checkbox"
+              className="mr-1"
+              checked={selectedTags.includes(tag)}
+              onChange={() =>
+                setSelectedTags((prev) =>
+                  prev.includes(tag)
+                    ? prev.filter((t) => t !== tag)
+                    : [...prev, tag]
+                )
+              }
+            />
+            #{tag}
+          </label>
+        ))}
+      </div>
 
       <AnimatePresence initial={false}>
         {showCalendar && (

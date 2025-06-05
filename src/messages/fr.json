@@ -18,14 +18,16 @@
       "loading": "Envoi…",
       "submitButton": "Soumettre",
       "successMessage": "🎉 Merci ! L’événement sera visible après modération.",
-      "captchaFailed": "La vérification CAPTCHA a échoué."
+      "captchaFailed": "La vérification CAPTCHA a échoué.",
+      "tagsLabel": "Tags"
     }
   },
   "eventList": {
     "viewAllEvents": "Voir tous les événements",
     "showCalendar": "Afficher le calendrier",
     "hideCalendar": "Masquer le calendrier",
-    "noEvents": "Aucun événement à cette date."
+    "noEvents": "Aucun événement à cette date.",
+    "filterByTag": "Filtrer par tag"
   },
   "contact": {
     "home": "Accueil",
