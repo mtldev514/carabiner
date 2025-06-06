@@ -1,6 +1,6 @@
 import Image from "next/image";
 import ImageCarousel from "./ImageCarousel";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { supabase } from "@/app/utils/supabaseClient";
 import { parseDateLocal } from "@/app/utils/dateUtils";
 import { useEffect, useState } from "react";
@@ -28,6 +28,7 @@ export type Event = {
 export  function EventCard({ event }: { event: Event }) {
   const locale = useLocale();
   const t = useTranslations();
+  const router = useRouter();
   const descriptionField =
     locale === "fr"
       ? "description_fr"
@@ -58,15 +59,30 @@ export  function EventCard({ event }: { event: Event }) {
   }, [event.id]);
 
   return (
-    <div className="p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+    <div
+      onClick={() => router.push(`/${locale}/events/${event.id}`)}
+      className="p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 cursor-pointer"
+    >
       {imageUrls.length > 0 && (
         <div className="mb-4">
           <ImageCarousel imageUrls={imageUrls} />
         </div>
       )}
-      <Link href={`/${locale}/events/${event.id}`} className="block space-y-1">
+      <div className="space-y-1">
         <h3 className="text-xl font-semibold mb-1 text-pink-700 dark:text-pink-300">
-          {event.title}
+          {event.event_url ? (
+            <a
+              href={event.event_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="underline"
+            >
+              {event.title}
+            </a>
+          ) : (
+            event.title
+          )}
         </h3>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
           {event.address_visibility === "public" ? event.address : event.city}
@@ -99,7 +115,7 @@ export  function EventCard({ event }: { event: Event }) {
         <p className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-line">
           {event[descriptionField] || event[otherDescriptionField]}
         </p>
-      </Link>
+      </div>
       {event.tags && event.tags.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-2">
           {event.tags.map((tag) => (
