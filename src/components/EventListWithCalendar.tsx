@@ -36,7 +36,7 @@ export default function EventListWithCalendar() {
         const mapped = data.map((e) => ({ ...e, event_url: e.ticket_url }));
         setEvents(
           mapped.filter((e) =>
-            parseDateLocal(e.end_date ?? e.date) >= today
+            new Date(e.end_date ?? e.date) >= today
           )
         );
       }
@@ -54,9 +54,9 @@ export default function EventListWithCalendar() {
 
   const groupByDay = (evts: Event[]) =>
     evts.reduce<Record<string, Event[]>>((acc, event) => {
-      const start = startOfDay(parseDateLocal(event.date));
+      const start = startOfDay(new Date(event.date));
       const end = event.end_date
-        ? startOfDay(parseDateLocal(event.end_date))
+        ? startOfDay(new Date(event.end_date))
         : start;
       for (let d = new Date(start); d <= end; d = addDays(d, 1)) {
         const key = format(d, "yyyy-MM-dd");
