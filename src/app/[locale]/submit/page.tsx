@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "../../utils/supabaseClient";
+import { parseDateLocal } from "../../utils/dateUtils";
 import { useTranslations, useLocale } from "next-intl";
 import TagChip from "@/components/TagChip";
 
@@ -108,8 +109,8 @@ export default function SubmitEventPage() {
         description_fr: form.description_fr,
         description_en: form.description_en,
         description_es: form.description_es,
-        date: new Date(form.date),
-        end_date: form.end_date ? new Date(form.end_date) : null,
+        date: parseDateLocal(form.date),
+        end_date: form.end_date ? parseDateLocal(form.end_date) : null,
         city: form.city,
         address_visibility: form.address_visibility,
         ticket_url: form.event_url,

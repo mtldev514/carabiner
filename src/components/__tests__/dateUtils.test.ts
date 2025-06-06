@@ -10,5 +10,15 @@ describe('parseDateLocal', () => {
     expect(d1.getHours()).toBe(0)
     expect(d1.getMinutes()).toBe(0)
   })
+
+  it('parses date with time as local time', () => {
+    const d = parseDateLocal('2025-06-28T22:15')
+    const expected = new Date(2025, 5, 28, 22, 15)
+    expect(d.getFullYear()).toBe(expected.getFullYear())
+    expect(d.getMonth()).toBe(expected.getMonth())
+    expect(d.getDate()).toBe(expected.getDate())
+    expect(d.getHours()).toBe(expected.getHours())
+    expect(d.getMinutes()).toBe(expected.getMinutes())
+  })
 })
 
