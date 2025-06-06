@@ -1,30 +1,37 @@
 'use client'
 
-import { useState } from 'react'
-import { useTranslations } from 'next-intl'
-import {Link} from '@/i18n/navigation'
+import { useState, useRef, useEffect } from 'react'
+import { useLocale } from 'next-intl'
 import LanguageSwitcher from './LanguageSwitcher'
 
 export default function HamburgerMenu() {
   const [open, setOpen] = useState(false)
-  const t = useTranslations('nav')
+  const locale = useLocale()
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handleClick(event: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => {
+      document.removeEventListener('mousedown', handleClick)
+    }
+  }, [])
 
   return (
-    <div className="relative">
+    <div className="relative" ref={containerRef}>
       <button
         onClick={() => setOpen(!open)}
         aria-label="Menu"
-        className="p-2 border rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
+        className="px-2 py-1 border rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
       >
-        <span className="block w-5 border-b border-current mb-1" />
-        <span className="block w-5 border-b border-current mb-1" />
-        <span className="block w-5 border-b border-current" />
+        {locale.toUpperCase()}
       </button>
       {open && (
         <div className="absolute right-0 mt-2 bg-white dark:bg-gray-900 border dark:border-gray-800 shadow-md rounded-md p-4 z-50 space-y-2 text-sm">
-          <Link href="/submit" className="block hover:text-pink-600 dark:hover:text-pink-400" onClick={() => setOpen(false)}>
-            {t('submit')}
-          </Link>
           <LanguageSwitcher onSwitch={() => setOpen(false)} />
         </div>
       )}
