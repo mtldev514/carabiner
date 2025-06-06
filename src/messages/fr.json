@@ -46,5 +46,9 @@
   },
   "eventCard": {
     "privateAddressNote": "L’adresse exacte sera transmise aux personnes inscrites."
+  },
+  "eventDetail": {
+    "back": "Retour aux événements",
+    "tickets": "Billets"
   }
 }
