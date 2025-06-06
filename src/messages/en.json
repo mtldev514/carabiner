@@ -2,7 +2,8 @@
   "nav": {
     "home": "Home",
     "submit": "Submit",
-    "admin": "Admin"
+    "admin": "Admin",
+    "addEvent": "Add Event"
   },
   "submit": {
     "title": "Submit an Event",

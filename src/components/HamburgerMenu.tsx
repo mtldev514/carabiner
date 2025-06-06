@@ -1,14 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { useTranslations } from 'next-intl'
-import {Link} from '@/i18n/navigation'
 import LanguageSwitcher from './LanguageSwitcher'
 
 export default function HamburgerMenu() {
   const [open, setOpen] = useState(false)
-  const t = useTranslations('nav')
-
   return (
     <div className="relative">
       <button
@@ -22,9 +18,6 @@ export default function HamburgerMenu() {
       </button>
       {open && (
         <div className="absolute right-0 mt-2 bg-white dark:bg-gray-900 border dark:border-gray-800 shadow-md rounded-md p-4 z-50 space-y-2 text-sm">
-          <Link href="/submit" className="block hover:text-pink-600 dark:hover:text-pink-400" onClick={() => setOpen(false)}>
-            {t('submit')}
-          </Link>
           <LanguageSwitcher onSwitch={() => setOpen(false)} />
         </div>
       )}

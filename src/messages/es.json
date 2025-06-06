@@ -2,7 +2,8 @@
   "nav": {
     "home": "Inicio",
     "submit": "Enviar",
-    "admin": "Admin"
+    "admin": "Admin",
+    "addEvent": "Agregar evento"
   },
   "submit": {
     "title": "Enviar un evento",
