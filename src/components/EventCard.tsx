@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ImageCarousel from "./ImageCarousel";
+import Link from "next/link";
 import { supabase } from "@/app/utils/supabaseClient";
 import { parseDateLocal } from "@/app/utils/dateUtils";
 import { useEffect, useState } from "react";
@@ -63,51 +64,42 @@ export  function EventCard({ event }: { event: Event }) {
           <ImageCarousel imageUrls={imageUrls} />
         </div>
       )}
-      {event.event_url ? (
-        <a
-          href={event.event_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-xl font-semibold mb-1 text-pink-700 dark:text-pink-300 underline"
-        >
+      <Link href={`/${locale}/events/${event.id}`} className="block space-y-1">
+        <h3 className="text-xl font-semibold mb-1 text-pink-700 dark:text-pink-300">
           {event.title}
-        </a>
-      ) : (
-        <h3 className="text-xl font-semibold mb-1 text-pink-700 dark:text-pink-300">{event.title}</h3>
-      )}
-      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-        {event.address_visibility === "public" ? event.address : event.city}
-      </p>
-      {event.address_visibility === "ticket_holder" && (
-        <p className="text-xs italic text-gray-500 dark:text-gray-400 mb-2">
-          {t("eventCard.privateAddressNote")}
+        </h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+          {event.address_visibility === "public" ? event.address : event.city}
         </p>
-      )}
-      <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
-        {parseDateLocal(event.date).toLocaleString(undefined, {
-          hour: "2-digit",
-          minute: "2-digit",
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-        })}
-        {event.end_date && (
-          <> -
-          {" "}
-          {parseDateLocal(event.end_date).toLocaleString(undefined, {
+        {event.address_visibility === "ticket_holder" && (
+          <p className="text-xs italic text-gray-500 dark:text-gray-400 mb-2">
+            {t("eventCard.privateAddressNote")}
+          </p>
+        )}
+        <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
+          {parseDateLocal(event.date).toLocaleString(undefined, {
             hour: "2-digit",
             minute: "2-digit",
             day: "2-digit",
             month: "2-digit",
             year: "numeric",
           })}
-          </>
-        )}
-      </p>
-      <p className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-line">
+          {event.end_date && (
+            <> -
+              {parseDateLocal(event.end_date).toLocaleString(undefined, {
+                hour: "2-digit",
+                minute: "2-digit",
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              })}
+            </>
+          )}
+        </p>
+        <p className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-line">
           {event[descriptionField] || event[otherDescriptionField]}
-      </p>
-      {/* Event link now attached to title */}
+        </p>
+      </Link>
       {event.tags && event.tags.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-2">
           {event.tags.map((tag) => (
