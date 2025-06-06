@@ -35,8 +35,15 @@ export  function EventCard({ event }: { event: Event }) {
       : locale === "es"
       ? "description_es"
       : "description_en";
-  const otherDescriptionField =
-    locale === "fr" ? "description_en" : "description_fr";
+  const description = [
+    descriptionField,
+    "description_en",
+    "description_fr",
+    "description_es",
+  ]
+    .filter((field, index, self) => self.indexOf(field) === index)
+    .map((field) => event[field as keyof Event] as string)
+    .find((desc) => desc && desc.trim()) || "";
   const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   useEffect(() => {
@@ -113,7 +120,7 @@ export  function EventCard({ event }: { event: Event }) {
           )}
         </p>
         <p className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-line">
-          {event[descriptionField] || event[otherDescriptionField]}
+          {description}
         </p>
       </div>
       {event.tags && event.tags.length > 0 && (

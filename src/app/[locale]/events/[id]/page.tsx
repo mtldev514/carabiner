@@ -56,7 +56,15 @@ export default function EventDetailPage({ params }: any) {
 
   const descriptionField =
     locale === "fr" ? "description_fr" : locale === "es" ? "description_es" : "description_en";
-  const otherDescriptionField = locale === "fr" ? "description_en" : "description_fr";
+  const description = [
+    descriptionField,
+    "description_en",
+    "description_fr",
+    "description_es",
+  ]
+    .filter((field, index, self) => self.indexOf(field) === index)
+    .map((field) => event[field as keyof Event] as string)
+    .find((desc) => desc && desc.trim()) || "";
 
   return (
     <div className="p-4 max-w-2xl mx-auto">
@@ -94,7 +102,7 @@ export default function EventDetailPage({ params }: any) {
         )}
       </p>
       <p className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-line mb-4">
-        {event[descriptionField] || event[otherDescriptionField]}
+        {description}
       </p>
       {event.event_url && (
         <a href={event.event_url} target="_blank" rel="noopener noreferrer" className="text-pink-700 dark:text-pink-300 underline block mb-2">
