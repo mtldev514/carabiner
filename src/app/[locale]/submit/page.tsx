@@ -1,6 +1,7 @@
 "use client";
 import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { supabase } from "../../utils/supabaseClient";
 import { useTranslations, useLocale } from "next-intl";
 import TagChip from "@/components/TagChip";
@@ -34,6 +35,7 @@ export default function SubmitEventPage() {
   const [imageError, setImageError] = useState<string | null>(null);
   const t = useTranslations("submit");
   const locale = useLocale();
+  const router = useRouter();
 
   const [form, setForm] = useState({
     title: "",
@@ -139,6 +141,7 @@ export default function SubmitEventPage() {
           tags: [],
           website: "",
         });
+        router.push(`/${locale}`);
       } else {
         alert(error?.message);
       }
