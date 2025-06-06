@@ -1,6 +1,7 @@
 import Image from "next/image";
 import ImageCarousel from "./ImageCarousel";
 import { supabase } from "@/app/utils/supabaseClient";
+import { parseDateLocal } from "@/app/utils/dateUtils";
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 
@@ -83,7 +84,7 @@ export  function EventCard({ event }: { event: Event }) {
         </p>
       )}
       <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
-        {new Date(event.date).toLocaleString(undefined, {
+        {parseDateLocal(event.date).toLocaleString(undefined, {
           hour: "2-digit",
           minute: "2-digit",
           day: "2-digit",
@@ -93,7 +94,7 @@ export  function EventCard({ event }: { event: Event }) {
         {event.end_date && (
           <> -
           {" "}
-          {new Date(event.end_date).toLocaleString(undefined, {
+          {parseDateLocal(event.end_date).toLocaleString(undefined, {
             hour: "2-digit",
             minute: "2-digit",
             day: "2-digit",
