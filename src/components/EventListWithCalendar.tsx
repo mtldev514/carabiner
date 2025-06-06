@@ -8,7 +8,8 @@ import "react-calendar/dist/Calendar.css";
 import { format, startOfDay, addDays } from "date-fns";
 import { fr, enUS, es } from "date-fns/locale";
 import { supabase } from "@/app/utils/supabaseClient";
-import {EventCard, Event} from "./EventCard";
+import { parseDateLocal } from "@/app/utils/dateUtils";
+import { EventCard, Event } from "./EventCard";
 import TagChip from "./TagChip";
 
 
@@ -35,7 +36,7 @@ export default function EventListWithCalendar() {
         const mapped = data.map((e) => ({ ...e, event_url: e.ticket_url }));
         setEvents(
           mapped.filter((e) =>
-            new Date(e.end_date ?? e.date) >= today
+            parseDateLocal(e.end_date ?? e.date) >= today
           )
         );
       }
@@ -53,9 +54,9 @@ export default function EventListWithCalendar() {
 
   const groupByDay = (evts: Event[]) =>
     evts.reduce<Record<string, Event[]>>((acc, event) => {
-      const start = startOfDay(new Date(event.date));
+      const start = startOfDay(parseDateLocal(event.date));
       const end = event.end_date
-        ? startOfDay(new Date(event.end_date))
+        ? startOfDay(parseDateLocal(event.end_date))
         : start;
       for (let d = new Date(start); d <= end; d = addDays(d, 1)) {
         const key = format(d, "yyyy-MM-dd");
@@ -67,7 +68,9 @@ export default function EventListWithCalendar() {
 
   const allGrouped = groupByDay(filteredEvents);
   const upcomingGrouped = Object.fromEntries(
-    Object.entries(allGrouped).filter(([date]) => new Date(date) >= today)
+    Object.entries(allGrouped).filter(
+      ([date]) => parseDateLocal(date) >= today
+    )
   );
   let grouped = upcomingGrouped;
   if (selectedDate) {
@@ -76,7 +79,8 @@ export default function EventListWithCalendar() {
   }
 
   const sortedDates = Object.keys(grouped).sort(
-    (a, b) => new Date(a).getTime() - new Date(b).getTime()
+    (a, b) =>
+      parseDateLocal(a).getTime() - parseDateLocal(b).getTime()
   );
 
   return (
@@ -161,7 +165,7 @@ export default function EventListWithCalendar() {
               day: "numeric",
               month: "long",
               year: "numeric",
-            }).format(new Date(date))}
+            }).format(parseDateLocal(date))}
           </h2>
           <ul className="space-y-4">
             {grouped[date].map((event) => (
