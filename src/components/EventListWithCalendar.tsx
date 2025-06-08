@@ -11,7 +11,7 @@ import { supabase } from "@/app/utils/supabaseClient";
 import { parseDateLocal } from "@/app/utils/dateUtils";
 import { EventCard, Event } from "./EventCard";
 import TagChip from "./TagChip";
-
+import { groupByDay } from "@/app/utils/dateUtils";
 
 export default function EventListWithCalendar() {
   const t = useTranslations("eventList");
@@ -52,19 +52,6 @@ export default function EventListWithCalendar() {
     );
   }
 
-  const groupByDay = (evts: Event[]) =>
-    evts.reduce<Record<string, Event[]>>((acc, event) => {
-      const start = startOfDay(parseDateLocal(event.date));
-      const end = event.end_date
-        ? startOfDay(parseDateLocal(event.end_date))
-        : start;
-      for (let d = new Date(start); d <= end; d = addDays(d, 1)) {
-        const key = format(d, "yyyy-MM-dd");
-        if (!acc[key]) acc[key] = [];
-        acc[key].push(event);
-      }
-      return acc;
-    }, {});
 
   const allGrouped = groupByDay(filteredEvents);
   const upcomingGrouped = Object.fromEntries(
