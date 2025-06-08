@@ -7,6 +7,7 @@ import { useTranslations, useLocale } from "next-intl";
 import TagChip from "@/components/TagChip";
 import { v4 as uuidv4 } from "uuid";
 import { appendLocalOffset, toDatetimeLocal } from "../../../../utils/dateUtils";
+import { useNonProductionGuard } from "../../../../utils/useNonProductionGuard";
 
 const uploadImages = async (
   eventId: string,
@@ -38,6 +39,7 @@ const uploadImages = async (
 export default function EditEventPage({ params }: any) {
   const { id, locale } = params as { id: string; locale: string };
   const router = useRouter();
+  const isAllowed = useNonProductionGuard();
   const t = useTranslations("submit");
   const loc = useLocale();
 
@@ -67,8 +69,7 @@ export default function EditEventPage({ params }: any) {
   });
 
   useEffect(() => {
-    if (process.env.VERCEL_ENV === "production") {
-      router.replace("/");
+    if (!isAllowed) {
       return;
     }
 
@@ -133,7 +134,7 @@ export default function EditEventPage({ params }: any) {
     setAddressSuggestions([]);
   }, [addressQuery, form.address_visibility, loc]);
 
-  if (process.env.VERCEL_ENV === "production") {
+  if (!isAllowed) {
     return null;
   }
 
