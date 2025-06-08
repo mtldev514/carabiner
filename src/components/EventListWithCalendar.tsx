@@ -8,7 +8,7 @@ import "react-calendar/dist/Calendar.css";
 import { format, startOfDay, addDays } from "date-fns";
 import { fr, enUS, es } from "date-fns/locale";
 import { supabase } from "@/app/utils/supabaseClient";
-import { parseDateLocal } from "@/app/utils/dateUtils";
+import { parseDateLocal, formatDateLocal } from "@/app/utils/dateUtils";
 import { EventCard, Event } from "./EventCard";
 import TagChip from "./TagChip";
 import { groupByDay } from "@/app/utils/dateUtils";
@@ -147,13 +147,7 @@ export default function EventListWithCalendar() {
       {sortedDates.map((date) => (
         <div key={date} className="mb-6">
           <h2 className="text-lg font-bold mb-2 text-pink-600 dark:text-pink-400">
-            {parseDateLocal(date).toLocaleString('fr-CA', {
-              timeZone: 'America/Toronto',
-              weekday: "long",
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })}
+            {formatDateLocal(date, 'EEEE d MMMM yyyy')}
           </h2>
           <ul className="space-y-4">
             {grouped[date].map((event) => (

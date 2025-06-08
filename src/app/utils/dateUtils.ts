@@ -1,4 +1,5 @@
 import { startOfDay, addDays, format } from 'date-fns'
+import { fr } from 'date-fns/locale'
 import type { Event } from '@/components/EventCard'
 
 export function parseDateLocal(dateStr: string): Date {
@@ -46,6 +47,15 @@ export function toDatetimeLocal(dateStr: string): string {
   const d = new Date(dateStr);
   d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
   return d.toISOString().slice(0, 16);
+}
+
+export function formatDateLocal(
+  dateStr: string,
+  pattern: string
+): string {
+  const d = parseDateLocal(dateStr)
+  if (isNaN(d.getTime())) return ''
+  return format(d, pattern, { locale: fr })
 }
 
 

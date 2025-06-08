@@ -2,7 +2,7 @@ import Image from "next/image";
 import ImageCarousel from "./ImageCarousel";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/app/utils/supabaseClient";
-import { parseDateLocal } from "@/app/utils/dateUtils";
+import { formatDateLocal } from "@/app/utils/dateUtils";
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 
@@ -100,25 +100,9 @@ export  function EventCard({ event }: { event: Event }) {
           </p>
         )}
         <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
-          {parseDateLocal(event.date).toLocaleString('fr-CA', {
-            timeZone: 'America/Toronto',
-            hour: "2-digit",
-            minute: "2-digit",
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-          })}
+          {formatDateLocal(event.date, 'dd MMMM yyyy, HH:mm')}
           {event.end_date && (
-            <> -
-              {parseDateLocal(event.end_date).toLocaleString('fr-CA', {
-                timeZone: 'America/Toronto',
-                hour: "2-digit",
-                minute: "2-digit",
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-              })}
-            </>
+            <> - {formatDateLocal(event.end_date, 'dd MMMM yyyy, HH:mm')}</>
           )}
         </p>
         <p className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-line">

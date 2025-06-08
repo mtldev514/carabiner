@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { supabase } from "../../../utils/supabaseClient";
-import { parseDateLocal } from "../../../utils/dateUtils";
+import { formatDateLocal } from "../../../utils/dateUtils";
 import ImageCarousel from "@/components/ImageCarousel";
 import { Event } from "@/components/EventCard";
 import Link from "next/link";
@@ -84,23 +84,9 @@ export default function EventDetailPage({ params }: any) {
         <p className="text-xs italic text-gray-500 dark:text-gray-400 mb-2">{tCard("privateAddressNote")}</p>
       )}
       <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-        {parseDateLocal(event.date).toLocaleString('fr-CA', {
-          timeZone: 'America/Toronto',
-          hour: "2-digit",
-          minute: "2-digit",
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-        })}
+        {formatDateLocal(event.date, 'dd MMMM yyyy, HH:mm')}
         {event.end_date && (
-          <> - {parseDateLocal(event.end_date).toLocaleString('fr-CA', {
-            timeZone: 'America/Toronto',
-            hour: "2-digit",
-            minute: "2-digit",
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-          })}</>
+          <> - {formatDateLocal(event.end_date, 'dd MMMM yyyy, HH:mm')}</>
         )}
       </p>
       <p className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-line mb-4">
