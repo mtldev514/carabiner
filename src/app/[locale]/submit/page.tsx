@@ -128,7 +128,7 @@ export default function SubmitEventPage() {
       if (!error && data?.id) {
         setSuccess(true);
         await uploadImages(data.id, images);
-        await supabase.functions.invoke("send-event-email", {
+        await supabase.functions.invoke("send-email-on-new-event", {
           body: { event: { id: data.id } },
         });
         setForm({
