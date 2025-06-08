@@ -2,7 +2,8 @@
   "nav": {
     "home": "Home",
     "submit": "Submit",
-    "admin": "Admin"
+    "admin": "Admin",
+    "addEvent": "Add Event"
   },
   "submit": {
     "title": "Submit an Event",
@@ -46,5 +47,9 @@
   },
   "eventCard": {
     "privateAddressNote": "The exact address will be sent to registered attendees."
+  },
+  "eventDetail": {
+    "back": "Back to events",
+    "tickets": "Tickets"
   }
 }

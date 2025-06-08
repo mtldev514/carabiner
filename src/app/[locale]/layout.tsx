@@ -1,6 +1,7 @@
 import { NextIntlClientProvider } from "next-intl";
 import "../globals.css";
 import HamburgerMenu from "@/components/HamburgerMenu";
+import AddEventButton from "@/components/AddEventButton";
 import Footer from "@/components/Footer";
 import "keen-slider/keen-slider.min.css";
 import Link from "next/link";
@@ -23,7 +24,10 @@ export default async function RootLayout({
               <Link href={`/${locale}`} className="text-xl font-semibold tracking-tight">
                 CARABINER.GAY
               </Link>
-              <HamburgerMenu />
+              <div className="flex items-center gap-4">
+                <AddEventButton />
+                <HamburgerMenu />
+              </div>
             </nav>
 
             {children}

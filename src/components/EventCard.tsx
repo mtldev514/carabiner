@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ImageCarousel from "./ImageCarousel";
+import { useRouter } from "next/navigation";
 import { supabase } from "@/app/utils/supabaseClient";
 import { parseDateLocal } from "@/app/utils/dateUtils";
 import { useEffect, useState } from "react";
@@ -27,14 +28,22 @@ export type Event = {
 export  function EventCard({ event }: { event: Event }) {
   const locale = useLocale();
   const t = useTranslations();
+  const router = useRouter();
   const descriptionField =
     locale === "fr"
       ? "description_fr"
       : locale === "es"
       ? "description_es"
       : "description_en";
-  const otherDescriptionField =
-    locale === "fr" ? "description_en" : "description_fr";
+  const description = [
+    descriptionField,
+    "description_en",
+    "description_fr",
+    "description_es",
+  ]
+    .filter((field, index, self) => self.indexOf(field) === index)
+    .map((field) => event[field as keyof Event] as string)
+    .find((desc) => desc && desc.trim()) || "";
   const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   useEffect(() => {
@@ -57,57 +66,65 @@ export  function EventCard({ event }: { event: Event }) {
   }, [event.id]);
 
   return (
-    <div className="p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+    <div
+      onClick={() => router.push(`/${locale}/events/${event.id}`)}
+      className="p-4 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 cursor-pointer"
+    >
       {imageUrls.length > 0 && (
-        <div className="mb-4">
+        <div className="mb-4" onClick={(e) => e.stopPropagation()}>
           <ImageCarousel imageUrls={imageUrls} />
         </div>
       )}
-      {event.event_url ? (
-        <a
-          href={event.event_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-xl font-semibold mb-1 text-pink-700 dark:text-pink-300 underline"
-        >
-          {event.title}
-        </a>
-      ) : (
-        <h3 className="text-xl font-semibold mb-1 text-pink-700 dark:text-pink-300">{event.title}</h3>
-      )}
-      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-        {event.address_visibility === "public" ? event.address : event.city}
-      </p>
-      {event.address_visibility === "ticket_holder" && (
-        <p className="text-xs italic text-gray-500 dark:text-gray-400 mb-2">
-          {t("eventCard.privateAddressNote")}
+      <div className="space-y-1">
+        <h3 className="text-xl font-semibold mb-1 text-pink-700 dark:text-pink-300">
+          {event.event_url ? (
+            <a
+              href={event.event_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="underline"
+            >
+              {event.title}
+            </a>
+          ) : (
+            event.title
+          )}
+        </h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+          {event.address_visibility === "public" ? event.address : event.city}
         </p>
-      )}
-      <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
-        {parseDateLocal(event.date).toLocaleString(undefined, {
-          hour: "2-digit",
-          minute: "2-digit",
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-        })}
-        {event.end_date && (
-          <> -
-          {" "}
-          {parseDateLocal(event.end_date).toLocaleString(undefined, {
+        {event.address_visibility === "ticket_holder" && (
+          <p className="text-xs italic text-gray-500 dark:text-gray-400 mb-2">
+            {t("eventCard.privateAddressNote")}
+          </p>
+        )}
+        <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
+          {parseDateLocal(event.date).toLocaleString('fr-CA', {
+            timeZone: 'America/Toronto',
             hour: "2-digit",
             minute: "2-digit",
             day: "2-digit",
             month: "2-digit",
             year: "numeric",
           })}
-          </>
-        )}
-      </p>
-      <p className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-line">
-          {event[descriptionField] || event[otherDescriptionField]}
-      </p>
-      {/* Event link now attached to title */}
+          {event.end_date && (
+            <> -
+              {parseDateLocal(event.end_date).toLocaleString('fr-CA', {
+                timeZone: 'America/Toronto',
+                hour: "2-digit",
+                minute: "2-digit",
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              })}
+            </>
+          )}
+        </p>
+        <p className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-line">
+          {description}
+        </p>
+      </div>
       {event.tags && event.tags.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-2">
           {event.tags.map((tag) => (

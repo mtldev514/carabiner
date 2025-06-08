@@ -1,42 +1,48 @@
 "use client";
-import { v4 as uuidv4 } from "uuid";
-import { useState, useEffect } from "react";
+
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "../../utils/supabaseClient";
+import { supabase } from "../../../../utils/supabaseClient";
 import { useTranslations, useLocale } from "next-intl";
-import { appendLocalOffset } from "../../utils/dateUtils";
 import TagChip from "@/components/TagChip";
+import { v4 as uuidv4 } from "uuid";
 
 const uploadImages = async (eventId: string, images: File[]) => {
   const uploads = images.map(async (image, index) => {
     const fileExt = image.type?.split("/").pop() || "jpg";
     const fileName = `${eventId}/${uuidv4()}.${fileExt}`;
 
-    const { data, error } = await supabase.storage
+    const { error } = await supabase.storage
       .from("event-photos")
       .upload(fileName, image, { upsert: true });
 
-    if (error) {
-      console.error("Upload error:", error.message);
-    } else {
-
+    if (!error) {
       await supabase.from("event_images").insert({
         event_id: eventId,
         file_name: fileName,
         order_index: index,
       });
+    } else {
+      console.error("Upload error:", error.message);
     }
   });
 
   await Promise.all(uploads);
 };
 
-export default function SubmitEventPage() {
+export default function EditEventPage({ params }: any) {
+  const { id, locale } = params as { id: string; locale: string };
+  const router = useRouter();
+  const t = useTranslations("submit");
+  const loc = useLocale();
+
   const [images, setImages] = useState<File[]>([]);
   const [imageError, setImageError] = useState<string | null>(null);
-  const t = useTranslations("submit");
-  const locale = useLocale();
-  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [addressQuery, setAddressQuery] = useState("");
+  const [addressSuggestions, setAddressSuggestions] = useState<any[]>([]);
+  const [activeTab, setActiveTab] = useState<"fr" | "en" | "es">("fr");
 
   const [form, setForm] = useState({
     title: "",
@@ -53,11 +59,38 @@ export default function SubmitEventPage() {
     website: "",
   });
 
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [addressQuery, setAddressQuery] = useState("");
-  const [addressSuggestions, setAddressSuggestions] = useState<any[]>([]);
-  const [activeTab, setActiveTab] = useState<"fr" | "en" | "es">("fr");
+  useEffect(() => {
+    if (process.env.VERCEL_ENV === "production") {
+      router.replace("/");
+      return;
+    }
+
+    const fetchEvent = async () => {
+      const { data } = await supabase
+        .from("events")
+        .select("*")
+        .eq("id", id)
+        .single();
+      if (data) {
+        setForm({
+          title: data.title || "",
+          description_fr: data.description_fr || "",
+          description_en: data.description_en || "",
+          description_es: data.description_es || "",
+          date: data.date ? new Date(data.date).toISOString().slice(0, 16) : "",
+          end_date: data.end_date ? new Date(data.end_date).toISOString().slice(0, 16) : "",
+          city: data.city || "",
+          address: data.address || "",
+          address_visibility: data.address_visibility || "public",
+          event_url: data.ticket_url || "",
+          tags: data.tags || [],
+          website: "",
+        });
+      }
+    };
+
+    fetchEvent();
+  }, [id, router]);
 
   useEffect(() => {
     if (form.address_visibility === "public" && addressQuery.length > 3) {
@@ -66,7 +99,7 @@ export default function SubmitEventPage() {
         `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=${encodeURIComponent(
           addressQuery
         )}`,
-        { signal: controller.signal, headers: { "Accept-Language": locale } }
+        { signal: controller.signal, headers: { "Accept-Language": loc } }
       )
         .then((res) => res.json())
         .then((data) => setAddressSuggestions(data))
@@ -74,12 +107,14 @@ export default function SubmitEventPage() {
       return () => controller.abort();
     }
     setAddressSuggestions([]);
-  }, [addressQuery, form.address_visibility]);
+  }, [addressQuery, form.address_visibility, loc]);
+
+  if (process.env.VERCEL_ENV === "production") {
+    return null;
+  }
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -87,68 +122,34 @@ export default function SubmitEventPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (images.length === 0) {
-      setImageError(t("form.imageRequiredError"));
-      return;
-    }
     setLoading(true);
 
-    const response = await fetch("/api/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
+    const updateData: Record<string, any> = {
+      title: form.title,
+      description_fr: form.description_fr,
+      description_en: form.description_en,
+      description_es: form.description_es,
+      date: new Date(form.date),
+      end_date: form.end_date ? new Date(form.end_date) : null,
+      city: form.city,
+      address_visibility: form.address_visibility,
+      ticket_url: form.event_url,
+      tags: form.tags,
+    };
+    updateData.address = form.address_visibility === "public" ? form.address : null;
 
-    const result = await response.json();
+    const { error } = await supabase.from("events").update(updateData).eq("id", id);
 
-    setLoading(false);
-    if (result.success) {
+    if (!error) {
+      if (images.length > 0) {
+        await uploadImages(id, images);
+      }
       setSuccess(true);
-      const insertData: Record<string, any> = {
-        title: form.title,
-        description_fr: form.description_fr,
-        description_en: form.description_en,
-        description_es: form.description_es,
-        date: new Date(appendLocalOffset(form.date)),
-        end_date: form.end_date ? new Date(appendLocalOffset(form.end_date)) : null,
-        city: form.city,
-        address_visibility: form.address_visibility,
-        ticket_url: form.event_url,
-        tags: form.tags,
-      };
-      if (form.address_visibility === "public") {
-        insertData.address = form.address;
-      }
-
-      const { data, error } = await supabase
-        .from("events")
-        .insert([insertData])
-        .select()
-        .single();
-      if (!error && data?.id) {
-        setSuccess(true);
-        await uploadImages(data.id, images);
-        setForm({
-          title: "",
-          description_fr: "",
-          description_en: "",
-          description_es: "",
-          date: "",
-          end_date: "",
-          city: "",
-          address: "",
-          address_visibility: "public",
-          event_url: "",
-          tags: [],
-          website: "",
-        });
-        router.push(`/${locale}`);
-      } else {
-        alert(error?.message);
-      }
+      router.push(`/${locale}/events/${id}`);
     } else {
-      alert("Submission blocked. Please try again later.");
+      alert(error.message);
     }
+    setLoading(false);
   };
 
   return (
@@ -177,15 +178,14 @@ export default function SubmitEventPage() {
           type="file"
           accept="image/*"
           multiple
-          required
-          lang={locale}
+          lang={loc}
           aria-label={t("form.imageInputLabel")}
           onChange={(e) => {
             const files = Array.from(e.target.files || []);
             if (files.length > 15) {
               setImageError(t("form.imageLimitError"));
             } else if (files.length === 0) {
-              setImageError(t("form.imageRequiredError"));
+              setImageError(null);
             } else {
               setImages(files);
               setImageError(null);
@@ -221,9 +221,7 @@ export default function SubmitEventPage() {
                 type="button"
                 onClick={() => setActiveTab(key as "fr" | "en" | "es")}
                 className={`px-2 py-1 border rounded ${
-                  activeTab === key
-                    ? "bg-gray-200 dark:bg-gray-700"
-                    : "bg-transparent"
+                  activeTab === key ? "bg-gray-200 dark:bg-gray-700" : "bg-transparent"
                 }`}
               >
                 {label}
@@ -286,7 +284,7 @@ export default function SubmitEventPage() {
           name="date"
           value={form.date}
           onChange={handleChange}
-          lang={locale}
+          lang={loc}
           aria-label={t("form.startDateLabel")}
           required
           className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
@@ -300,7 +298,7 @@ export default function SubmitEventPage() {
           name="end_date"
           value={form.end_date}
           onChange={handleChange}
-          lang={locale}
+          lang={loc}
           aria-label={t("form.endDateLabel")}
           className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
         />
@@ -315,9 +313,7 @@ export default function SubmitEventPage() {
           className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
         >
           <option value="public">{t("form.addressVisibilityPublic")}</option>
-          <option value="ticket_holder">
-            {t("form.addressVisibilityTicketHolder")}
-          </option>
+          <option value="ticket_holder">{t("form.addressVisibilityTicketHolder")}</option>
         </select>
         {form.address_visibility === "public" && (
           <>
@@ -334,9 +330,7 @@ export default function SubmitEventPage() {
               onChange={(e) => {
                 setForm({ ...form, address: e.target.value });
                 setAddressQuery(e.target.value);
-                const match = addressSuggestions.find(
-                  (s) => s.display_name === e.target.value
-                );
+                const match = addressSuggestions.find((s) => s.display_name === e.target.value);
                 if (match) {
                   const c =
                     match.address.city ||
@@ -426,3 +420,4 @@ export default function SubmitEventPage() {
     </div>
   );
 }
+

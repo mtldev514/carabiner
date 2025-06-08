@@ -2,7 +2,8 @@
   "nav": {
     "home": "Accueil",
     "submit": "Soumettre",
-    "admin": "Admin"
+    "admin": "Admin",
+    "addEvent": "Ajouter un événement"
   },
   "submit": {
     "title": "Soumettre un événement",
@@ -46,5 +47,9 @@
   },
   "eventCard": {
     "privateAddressNote": "L’adresse exacte sera transmise aux personnes inscrites."
+  },
+  "eventDetail": {
+    "back": "Retour aux événements",
+    "tickets": "Billets"
   }
 }

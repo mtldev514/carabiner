@@ -2,7 +2,8 @@
   "nav": {
     "home": "Inicio",
     "submit": "Enviar",
-    "admin": "Admin"
+    "admin": "Admin",
+    "addEvent": "Agregar evento"
   },
   "submit": {
     "title": "Enviar un evento",
@@ -46,5 +47,9 @@
   },
   "eventCard": {
     "privateAddressNote": "La dirección exacta se enviará a las personas registradas."
+  },
+  "eventDetail": {
+    "back": "Volver a eventos",
+    "tickets": "Boletos"
   }
 }
