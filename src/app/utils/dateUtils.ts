@@ -40,3 +40,12 @@ export function appendLocalOffset(dateStr: string): string {
   const mm = String(abs % 60).padStart(2, '0');
   return `${dateStr}${sign}${hh}:${mm}`;
 }
+
+export function toDatetimeLocal(dateStr: string): string {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+  return d.toISOString().slice(0, 16);
+}
+
+
