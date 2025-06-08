@@ -3,13 +3,13 @@ import { useRouter } from 'next/navigation';
 
 export function useNonProductionGuard(): boolean {
   const router = useRouter();
-  const isDisallowed = process.env.VERCEL_ENV !== 'development';
+  const isProd = process.env.VERCEL_ENV === 'production';
 
   useEffect(() => {
-    if (isDisallowed) {
+    if (isProd) {
       router.replace('/');
     }
-  }, [isDisallowed, router]);
+  }, [isProd, router]);
 
-  return !isDisallowed;
+  return !isProd;
 }
