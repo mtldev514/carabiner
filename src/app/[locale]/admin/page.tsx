@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { supabase } from "../../utils/supabaseClient"
 import { EventCard } from "@/components/EventCard"
 import { useTranslations } from "next-intl"
+import { useNonProductionGuard } from "../../utils/useNonProductionGuard"
 
 interface PendingEvent {
   id: string
@@ -25,14 +26,12 @@ interface PendingEvent {
 
 export default function AdminPage() {
   const router = useRouter()
+  const isAllowed = useNonProductionGuard()
   const t = useTranslations("admin")
   const [events, setEvents] = useState<PendingEvent[]>([])
 
   useEffect(() => {
-    if (process.env.VERCEL_ENV === "production") {
-      router.replace("/")
-      return
-    }
+    if (!isAllowed) return
 
     const fetchEvents = async () => {
       const { data } = await supabase
@@ -44,9 +43,9 @@ export default function AdminPage() {
     }
 
     fetchEvents()
-  }, [router])
+  }, [isAllowed, router])
 
-  if (process.env.VERCEL_ENV === "production") {
+  if (!isAllowed) {
     return null
   }
 
