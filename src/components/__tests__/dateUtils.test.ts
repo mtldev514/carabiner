@@ -1,4 +1,4 @@
-import { parseDateLocal } from '@/app/utils/dateUtils'
+import { parseDateLocal, toDatetimeLocal } from '@/app/utils/dateUtils'
 
 describe('parseDateLocal', () => {
   it('parses date without time as local midnight', () => {
@@ -9,6 +9,19 @@ describe('parseDateLocal', () => {
     expect(d1.getDate()).toBe(d2.getDate())
     expect(d1.getHours()).toBe(0)
     expect(d1.getMinutes()).toBe(0)
+  })
+})
+
+describe('toDatetimeLocal', () => {
+  it('formats ISO dates to local datetime-local string', () => {
+    const d = '2024-07-09T15:30:00Z'
+    const result = toDatetimeLocal(d)
+    const expected = (() => {
+      const dt = new Date(d)
+      dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset())
+      return dt.toISOString().slice(0, 16)
+    })()
+    expect(result).toBe(expected)
   })
 })
 

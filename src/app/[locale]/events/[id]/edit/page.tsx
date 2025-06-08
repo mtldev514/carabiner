@@ -6,8 +6,13 @@ import { supabase } from "../../../../utils/supabaseClient";
 import { useTranslations, useLocale } from "next-intl";
 import TagChip from "@/components/TagChip";
 import { v4 as uuidv4 } from "uuid";
+import { appendLocalOffset, toDatetimeLocal } from "../../../../utils/dateUtils";
 
-const uploadImages = async (eventId: string, images: File[]) => {
+const uploadImages = async (
+  eventId: string,
+  images: File[],
+  startIndex = 0
+) => {
   const uploads = images.map(async (image, index) => {
     const fileExt = image.type?.split("/").pop() || "jpg";
     const fileName = `${eventId}/${uuidv4()}.${fileExt}`;
@@ -20,7 +25,7 @@ const uploadImages = async (eventId: string, images: File[]) => {
       await supabase.from("event_images").insert({
         event_id: eventId,
         file_name: fileName,
-        order_index: index,
+        order_index: startIndex + index,
       });
     } else {
       console.error("Upload error:", error.message);
@@ -37,6 +42,8 @@ export default function EditEventPage({ params }: any) {
   const loc = useLocale();
 
   const [images, setImages] = useState<File[]>([]);
+  const [existingImages, setExistingImages] = useState<{ file_name: string; url: string }[]>([]);
+  const [imagesToRemove, setImagesToRemove] = useState<string[]>([]);
   const [imageError, setImageError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -77,8 +84,8 @@ export default function EditEventPage({ params }: any) {
           description_fr: data.description_fr || "",
           description_en: data.description_en || "",
           description_es: data.description_es || "",
-          date: data.date ? new Date(data.date).toISOString().slice(0, 16) : "",
-          end_date: data.end_date ? new Date(data.end_date).toISOString().slice(0, 16) : "",
+          date: data.date ? toDatetimeLocal(data.date) : "",
+          end_date: data.end_date ? toDatetimeLocal(data.end_date) : "",
           city: data.city || "",
           address: data.address || "",
           address_visibility: data.address_visibility || "public",
@@ -86,6 +93,23 @@ export default function EditEventPage({ params }: any) {
           tags: data.tags || [],
           website: "",
         });
+
+        const { data: imgs } = await supabase
+          .from("event_images")
+          .select("file_name")
+          .eq("event_id", id)
+          .order("order_index", { ascending: true });
+
+        if (imgs) {
+          setExistingImages(
+            imgs.map((img) => ({
+              file_name: img.file_name,
+              url: supabase.storage
+                .from("event-photos")
+                .getPublicUrl(img.file_name).data.publicUrl,
+            }))
+          );
+        }
       }
     };
 
@@ -129,8 +153,8 @@ export default function EditEventPage({ params }: any) {
       description_fr: form.description_fr,
       description_en: form.description_en,
       description_es: form.description_es,
-      date: new Date(form.date),
-      end_date: form.end_date ? new Date(form.end_date) : null,
+      date: new Date(appendLocalOffset(form.date)),
+      end_date: form.end_date ? new Date(appendLocalOffset(form.end_date)) : null,
       city: form.city,
       address_visibility: form.address_visibility,
       ticket_url: form.event_url,
@@ -141,8 +165,19 @@ export default function EditEventPage({ params }: any) {
     const { error } = await supabase.from("events").update(updateData).eq("id", id);
 
     if (!error) {
+      if (imagesToRemove.length > 0) {
+        await supabase.storage.from("event-photos").remove(imagesToRemove);
+        await supabase
+          .from("event_images")
+          .delete()
+          .in("file_name", imagesToRemove);
+      }
+
       if (images.length > 0) {
-        await uploadImages(id, images);
+        const remaining = existingImages.filter(
+          (img) => !imagesToRemove.includes(img.file_name)
+        ).length;
+        await uploadImages(id, images, remaining);
       }
       setSuccess(true);
       router.push(`/${locale}/events/${id}`);
@@ -195,6 +230,31 @@ export default function EditEventPage({ params }: any) {
         />
 
         {imageError && <p className="text-red-500 text-sm">{imageError}</p>}
+
+        {existingImages.filter((img) => !imagesToRemove.includes(img.file_name)).length > 0 && (
+          <div className="grid grid-cols-3 gap-2 mt-2">
+            {existingImages
+              .filter((img) => !imagesToRemove.includes(img.file_name))
+              .map((img, index) => (
+                <div key={img.file_name} className="relative">
+                  <img
+                    src={img.url}
+                    alt={`existing-${index}`}
+                    className="h-24 object-cover rounded border dark:border-gray-600"
+                  />
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setImagesToRemove([...imagesToRemove, img.file_name])
+                    }
+                    className="absolute top-1 right-1 bg-red-600 text-white rounded-full px-1"
+                  >
+                    &times;
+                  </button>
+                </div>
+              ))}
+          </div>
+        )}
 
         {images.length > 0 && (
           <div className="grid grid-cols-3 gap-2 mt-2">
@@ -420,4 +480,3 @@ export default function EditEventPage({ params }: any) {
     </div>
   );
 }
-
