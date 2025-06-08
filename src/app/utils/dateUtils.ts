@@ -15,7 +15,7 @@ export function groupByDay(evts: Event[]) {
     let end = startOfDay(endDate)
 
     const skipEndDay =
-      event.end_date && endDate.getHours() < 6 && start.getTime() !== end.getTime()
+      event.end_date && endDate.getHours() < 8 && start.getTime() !== end.getTime()
 
     if (skipEndDay) {
       end = addDays(end, -1)
