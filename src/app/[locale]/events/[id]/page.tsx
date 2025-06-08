@@ -84,7 +84,8 @@ export default function EventDetailPage({ params }: any) {
         <p className="text-xs italic text-gray-500 dark:text-gray-400 mb-2">{tCard("privateAddressNote")}</p>
       )}
       <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-        {parseDateLocal(event.date).toLocaleString(undefined, {
+        {parseDateLocal(event.date).toLocaleString('fr-CA', {
+          timeZone: 'America/Toronto',
           hour: "2-digit",
           minute: "2-digit",
           day: "2-digit",
@@ -92,7 +93,8 @@ export default function EventDetailPage({ params }: any) {
           year: "numeric",
         })}
         {event.end_date && (
-          <> - {parseDateLocal(event.end_date).toLocaleString(undefined, {
+          <> - {parseDateLocal(event.end_date).toLocaleString('fr-CA', {
+            timeZone: 'America/Toronto',
             hour: "2-digit",
             minute: "2-digit",
             day: "2-digit",

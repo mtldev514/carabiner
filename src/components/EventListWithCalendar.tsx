@@ -160,12 +160,13 @@ export default function EventListWithCalendar() {
       {sortedDates.map((date) => (
         <div key={date} className="mb-6">
           <h2 className="text-lg font-bold mb-2 text-pink-600 dark:text-pink-400">
-            {new Intl.DateTimeFormat(locale, {
+            {parseDateLocal(date).toLocaleString('fr-CA', {
+              timeZone: 'America/Toronto',
               weekday: "long",
               day: "numeric",
               month: "long",
               year: "numeric",
-            }).format(parseDateLocal(date))}
+            })}
           </h2>
           <ul className="space-y-4">
             {grouped[date].map((event) => (

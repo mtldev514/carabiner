@@ -100,7 +100,8 @@ export  function EventCard({ event }: { event: Event }) {
           </p>
         )}
         <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
-          {parseDateLocal(event.date).toLocaleString(undefined, {
+          {parseDateLocal(event.date).toLocaleString('fr-CA', {
+            timeZone: 'America/Toronto',
             hour: "2-digit",
             minute: "2-digit",
             day: "2-digit",
@@ -109,7 +110,8 @@ export  function EventCard({ event }: { event: Event }) {
           })}
           {event.end_date && (
             <> -
-              {parseDateLocal(event.end_date).toLocaleString(undefined, {
+              {parseDateLocal(event.end_date).toLocaleString('fr-CA', {
+                timeZone: 'America/Toronto',
                 hour: "2-digit",
                 minute: "2-digit",
                 day: "2-digit",
