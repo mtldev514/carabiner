@@ -51,5 +51,12 @@
   "eventDetail": {
     "back": "Back to events",
     "tickets": "Tickets"
+  },
+  "adminNew": {
+    "uploadButton": "Add event via image",
+    "analyzing": "Analyzing image...",
+    "analysisError": "Image analysis failed. Please fill the form manually.",
+    "missing": "Missing fields:",
+    "reset": "Reset form"
   }
 }
