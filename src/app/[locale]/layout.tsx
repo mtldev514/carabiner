@@ -18,6 +18,9 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+      </head>
       <body className="min-h-screen flex flex-col">
         <NextIntlClientProvider >
           <main className="flex-1">
