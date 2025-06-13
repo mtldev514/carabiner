@@ -3,6 +3,7 @@ import "../globals.css";
 import HamburgerMenu from "@/components/HamburgerMenu";
 import AddEventButton from "@/components/AddEventButton";
 import Footer from "@/components/Footer";
+import InstallPrompt from "@/components/InstallPrompt";
 import "keen-slider/keen-slider.min.css";
 import Link from "next/link";
 
@@ -17,6 +18,9 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+      </head>
       <body className="min-h-screen flex flex-col">
         <NextIntlClientProvider >
           <main className="flex-1">
@@ -32,6 +36,7 @@ export default async function RootLayout({
 
             {children}
           </main>
+          <InstallPrompt />
           <Footer />
         </NextIntlClientProvider>
       </body>

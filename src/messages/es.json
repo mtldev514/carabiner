@@ -51,5 +51,10 @@
   "eventDetail": {
     "back": "Volver a eventos",
     "tickets": "Boletos"
+  },
+  "installPrompt": {
+    "message": "Instala Carabiner en tu teléfono para acceder rápidamente.",
+    "install": "Instalar",
+    "dismiss": "Cerrar"
   }
 }
