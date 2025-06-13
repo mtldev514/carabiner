@@ -7,8 +7,9 @@
 - **Event Discovery**: Browse upcoming events in a clean, date-organized feed.  
 - **Multilingual Support**: The app is now available in French, English and Spanish (with Mexican terminology), including all event content.
 - **Community Contributions**: Anyone can submit an event. Submissions go through moderation before being published.  
-- **Rich Event Cards**: Events include images, time, location, and multilingual descriptions.  
-- **Built for Mobile & Desktop**: The interface is responsive, smooth, and accessible.  
+- **Rich Event Cards**: Events include images, time, location, and multilingual descriptions.
+- **Built for Mobile & Desktop**: The interface is responsive, smooth, and accessible.
+- **Installable**: On mobile devices, a banner invites you to install the web app for quick access.
 
 ## 🛠 Tech Stack
 

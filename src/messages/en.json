@@ -51,5 +51,10 @@
   "eventDetail": {
     "back": "Back to events",
     "tickets": "Tickets"
+  },
+  "installPrompt": {
+    "message": "Install Carabiner on your phone for quick access.",
+    "install": "Install",
+    "dismiss": "Dismiss"
   }
 }
