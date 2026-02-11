@@ -2,23 +2,27 @@
 # carabiner
 
 ## Description
-Projet `mtldev514/carabiner` maintenu pour delivrer ses fonctionnalites applicatives actuelles.
+Projet `mtldev514/carabiner` maintenu pour support operationnel et evolution.
 
 ## About
-Projet `mtldev514/carabiner` maintenu pour delivrer ses fonctionnalites applicatives actuelles. La base technique s'appuie sur une organisation de code exploitable en maintenance, avec scripts et points d'entree identifiables pour l'onboarding et les operations.
+Projet `mtldev514/carabiner` maintenu pour support operationnel et evolution. Ce README est oriente maintenance/operations pour faciliter l'onboarding, le run et la transition entre contributeurs.
 
 Fonctionnalites cles implementees a ce jour:
-- Chaine de commandes projet disponible via scripts npm (dev, start, build, test).
+- Surface technique detectee: `Node.js`, `React`, `Next.js`, `TypeScript`.
+- Points d'entree identifies: a confirmer manuellement.
+- Workflow projet: scripts de build/run/test disponibles.
 
 ## Stack Technique
-- Technologies: `Node.js`, `TypeScript`, `React`, `Next.js`
-- Versions cles: non explicitement declarees dans les manifests detectes.
-- Visibilite du depot: public
+- Technologies: `Node.js`, `React`, `Next.js`, `TypeScript`
+- Versions cles: non explicite dans les manifests
+- CI/CD detecte: aucun pipeline explicite detecte
+- Branche par defaut GitHub: `main`
+- Visibilite: public
 
 ## Installation & Configuration
-- 1. Cloner le depot puis se placer dans le dossier projet.
-- 2. Installer les dependances: `npm ci` (ou `npm install` si lockfile absent).
-- 4. Variables d'environnement: verifier la presence d'un fichier `.env` local si requis par l'application.
+- Prerequis: `git` + environnement de la stack (Node/Python/Docker selon la section precedente).
+- Installer dependances: `npm ci` (ou `npm install` si lockfile absent).
+- Variables d'environnement: verifier les fichiers de config applicatifs (aucun `.env.example` detecte).
 
 ## Commandes Usuelles
 | Action | Commande | Detail |
@@ -30,11 +34,27 @@ Fonctionnalites cles implementees a ce jour:
 | lint | `npm run lint` | next lint |
 
 ## Architecture
-- Modules/repertoires principaux: `docs`, `public`, `src`, `supabase`.
+- Repertoires principaux: `docs`, `public`, `src`, `supabase`.
+- Entry points: a documenter manuellement.
+- CI/CD: absent ou non detecte.
+
+## Timeline & Metrics
+- Creation GitHub: 2025-05-30
+- Premiere activite git (local): 2025-05-30
+- Derniere activite git (local): 2026-02-10
+- Periode de travail observee: 2025-05-30 -> 2026-02-10 (256 day(s))
+- Nombre total de commits (all branches): 174
+- Nombre de contributeurs (historique git): 3
+- Fichiers suivis (git ls-files): 40
+- Volume code approx. (lignes sur fichiers suivis): 13469
+- Branches locales: 8 | Tags: 0
 
 ## Etat Actuel
-- 2 marqueurs techniques (TODO/FIXME/XXX) trouvés dans le code.
-- Limites de cet audit: analyse statique rapide basee sur la structure du depot et les manifests disponibles.
+- TODO/FIXME/XXX detectes: 3
+- Etat workspace local: propre
+- Dernier push GitHub: 2026-02-11
+- Derniere mise a jour GitHub: 2025-08-29
+- Limitation: metriques calculees automatiquement, a completer si des donnees metier manquent.
 
 ## Historical Notes (README precedent)
 Les informations historiques suivantes ont ete conservees pour la transition maintenance:
