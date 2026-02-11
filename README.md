@@ -5,12 +5,21 @@
 Projet `mtldev514/carabiner` maintenu pour support operationnel et evolution.
 
 ## About
-Projet `mtldev514/carabiner` maintenu pour support operationnel et evolution. Ce README est oriente maintenance/operations pour faciliter l'onboarding, le run et la transition entre contributeurs.
+**Carabiner** is a multilingual web app designed to help the queer community of Montréal discover, share, and connect through events. Named after the climbing tool that links things together, Carabiner aims to build bridges within the community — one event at a time. 1. **Clone t Ce README est oriente maintenance/operations (runbook + onboarding + passation).
 
-Fonctionnalites cles implementees a ce jour:
-- Surface technique detectee: `Node.js`, `React`, `Next.js`, `TypeScript`.
-- Points d'entree identifies: a confirmer manuellement.
-- Workflow projet: scripts de build/run/test disponibles.
+## Ce que fait l'application
+- Probleme cible: **Carabiner** is a multilingual web app designed to help the queer community of Montréal discover, share, and connect through events. Named after the climbing tool that links things together, Carabiner aims to build bridges within the community — one event at a time. 1. **Clone t
+- Solution technique: Le projet est implemente comme plateforme full-stack basee sur `Node.js`, `React`, `Next.js`, `TypeScript`.
+- Flux principal:
+  - Demarrage developpement via script `dev`.
+  - Execution applicative via script `start`.
+  - Build reproductible via script `build`.
+  - Validation technique via script `test`.
+- Fonctionnalites actuellement livrees:
+  - Event Discovery: Browse upcoming events in a clean, date-organized feed.
+  - Multilingual Support: The app is now available in French, English and Spanish (with Mexican terminology), including all event content.
+  - Community Contributions: Anyone can submit an event. Submissions go through moderation before being published.
+  - Rich Event Cards: Events include images, time, location, and multilingual descriptions.
 
 ## Stack Technique
 - Technologies: `Node.js`, `React`, `Next.js`, `TypeScript`
@@ -20,9 +29,9 @@ Fonctionnalites cles implementees a ce jour:
 - Visibilite: public
 
 ## Installation & Configuration
-- Prerequis: `git` + environnement de la stack (Node/Python/Docker selon la section precedente).
-- Installer dependances: `npm ci` (ou `npm install` si lockfile absent).
-- Variables d'environnement: verifier les fichiers de config applicatifs (aucun `.env.example` detecte).
+- Prerequis: `git` + runtime correspondant a la stack.
+- Installer dependances: `npm ci` (ou `npm install`).
+- Variables d'environnement: verifier les besoins applicatifs (aucun template detecte).
 
 ## Commandes Usuelles
 | Action | Commande | Detail |
@@ -34,19 +43,18 @@ Fonctionnalites cles implementees a ce jour:
 | lint | `npm run lint` | next lint |
 
 ## Architecture
-- Repertoires principaux: `docs`, `public`, `src`, `supabase`.
+- Repertoires principaux: `node_modules/jest-runtime`, `node_modules/jest-matcher-utils`, `node_modules/callsites`, `node_modules/@alloc`, `node_modules/tapable`, `node_modules/test-exclude`, `node_modules/styled-jsx`, `node_modules/bser`, `node_modules/simple-swizzle`, `node_modules/jest-docblock`, `node_modules/jsesc`, `node_modules/pirates`.
 - Entry points: a documenter manuellement.
-- CI/CD: absent ou non detecte.
 
 ## Timeline & Metrics
 - Creation GitHub: 2025-05-30
 - Premiere activite git (local): 2025-05-30
 - Derniere activite git (local): 2026-02-10
 - Periode de travail observee: 2025-05-30 -> 2026-02-10 (256 day(s))
-- Nombre total de commits (all branches): 174
-- Nombre de contributeurs (historique git): 3
-- Fichiers suivis (git ls-files): 40
-- Volume code approx. (lignes sur fichiers suivis): 13469
+- Nombre total de commits (all branches): 175
+- Nombre de contributeurs: 3
+- Fichiers suivis: 40
+- Volume code approx. (lignes): 13489
 - Branches locales: 8 | Tags: 0
 
 ## Etat Actuel
@@ -54,7 +62,7 @@ Fonctionnalites cles implementees a ce jour:
 - Etat workspace local: propre
 - Dernier push GitHub: 2026-02-11
 - Derniere mise a jour GitHub: 2025-08-29
-- Limitation: metriques calculees automatiquement, a completer si des donnees metier manquent.
+- Limitation: informations fonctionnelles deduites automatiquement; valider metier si necessaire.
 
 ## Historical Notes (README precedent)
 Les informations historiques suivantes ont ete conservees pour la transition maintenance:
@@ -121,7 +129,6 @@ This is version **0.1.0** — a first step. Contributions, ideas, and feedback a
 
 
 ❤️‍🔥 Made with ❤️ and 🤖 in MTL. All art is human.
-
 
 </details>
 
