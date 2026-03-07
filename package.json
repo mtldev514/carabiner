@@ -14,7 +14,7 @@
     "date-fns": "^4.1.0",
     "framer-motion": "^12.15.0",
     "keen-slider": "^6.8.6",
-    "next": "15.3.3",
+    "next": "15.3.8",
     "next-intl": "^4.1.0",
     "react": "^19.0.0",
     "react-calendar": "^6.0.0",
