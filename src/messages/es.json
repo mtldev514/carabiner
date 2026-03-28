@@ -51,5 +51,12 @@
   "eventDetail": {
     "back": "Volver a eventos",
     "tickets": "Boletos"
+  },
+  "adminNew": {
+    "uploadButton": "Agregar evento desde imagen",
+    "analyzing": "Analizando imagen...",
+    "analysisError": "Falló el análisis. Completa el formulario manualmente.",
+    "missing": "Campos faltantes:",
+    "reset": "Reiniciar formulario"
   }
 }

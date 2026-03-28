@@ -51,5 +51,12 @@
   "eventDetail": {
     "back": "Retour aux événements",
     "tickets": "Billets"
+  },
+  "adminNew": {
+    "uploadButton": "Ajouter un événement via une image",
+    "analyzing": "Analyse de l'image...",
+    "analysisError": "Échec de l'analyse. Merci de compléter manuellement.",
+    "missing": "Champs manquants :",
+    "reset": "Réinitialiser le formulaire"
   }
 }
