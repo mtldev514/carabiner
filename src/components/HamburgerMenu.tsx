@@ -10,14 +10,16 @@ export default function HamburgerMenu() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    function handleClick(event: MouseEvent) {
+    function handleClick(event: MouseEvent | TouchEvent) {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
         setOpen(false)
       }
     }
-    document.addEventListener('mousedown', handleClick)
+    document.addEventListener('mousedown', handleClick, { passive: true })
+    document.addEventListener('touchstart', handleClick, { passive: true })
     return () => {
       document.removeEventListener('mousedown', handleClick)
+      document.removeEventListener('touchstart', handleClick)
     }
   }, [])
 
